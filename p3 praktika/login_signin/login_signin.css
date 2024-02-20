@@ -6,14 +6,14 @@
     box-sizing: border-box;
 }
 body{
-    background-color: #111642;
-    
+    background-color: #202020;
 }
 html,
 body {
   height: 100%;
   width: 100%;
   overflow: hidden;
+  
   
 }
 
@@ -29,7 +29,7 @@ input {
 }
 
 .signin-signup {
-    background-color: #E6E8E9;
+    background-color: #EDEDEB;
     border-radius: 5%;
     position: absolute;
     top: 50%;
@@ -41,7 +41,7 @@ input {
     z-index: 5;
 }
 .signin-signup1 {
-    background-color: #E6E8E9;
+    background-color: #EDEDEB;
     border-radius: 5%;
     position: absolute;
     top: 50%;
@@ -113,12 +113,12 @@ form {
 }
 .btn {
     width: 150px;
-    background-color: #111642;
+    background-color: #202020;
     border: none;
     outline: none;
     height: 49px;
     border-radius: 49px;
-    color: #BFDFE9;
+    color: #D6CC56;
     text-transform: uppercase;
     font-weight: 600;
     margin: 10px 0;
@@ -127,6 +127,6 @@ form {
   }
   
   .btn:hover {
-    background-color: #2a3281;
-    color: #87b5c2;
+    background-color: #E1B02E;
+    color: #2d2101;
   }
