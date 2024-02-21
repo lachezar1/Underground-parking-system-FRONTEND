@@ -1,0 +1,55 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+
+}
+
+#particle-canvas {
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.content{
+    width: 100vw;
+    height: 100vh;
+}
+
+.float-left{
+    background-color: rgb(205, 162, 43);;
+    height: 100%;
+    width: 40%;
+    box-shadow: 0px 0px 30px 5px black;
+    z-index: 4;
+        border-radius: 0px 20px 20px 0px;
+
+}
+.float-right{
+    background-color: rgb(56, 56, 56);;
+    height: 60%;
+    width: 50%;
+    z-index: 2;
+    border-radius: 0px 20px 20px 0px;
+    display: flex;
+    align-items: center;
+    transform: translateX(-1000px);
+}
+.inner{
+    background-color: rgb(174, 174, 174);;
+    height: 85%;
+    width: 96%;
+    z-index: 3;
+    border-radius: 0px 10px 10px 0px;
+    transform: translateX(-1000px);
+}
+.asdasd{
+    transform: translateX(0px);
+    transition: 1.2s;
+}
+.asd{
+    transform: translateX(0px);
+    transition: 1.5s;
+}
