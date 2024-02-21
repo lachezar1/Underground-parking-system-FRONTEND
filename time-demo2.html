@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <!--par == 1, a.k.a. From:-->
+    <div class="d-flex">
+        <div class="d-flex flex-column justify-content-center mx-1">
+            <div onclick="upH(1);"><i class="fs-5 bi bi-caret-up" id="arrow-upH"></i></div>
+            <p class="fs-5 border my-0" id="hour-text">07</p>
+            <div onclick="downH(1);"><i class="fs-5 bi bi-caret-down-fill" id="arrow-downH"></i></div>
+        </div>
+        <div class="d-flex align-content-middle my-auto">
+            <p class="fs-5 border px-1 my-0">:</p>
+        </div>
+        <div class="d-flex flex-column mx-1">
+            <div onclick="upM(1);"><i class="fs-5 bi bi-caret-up" id="arrow-upM"></i></div>
+            <p class="fs-5 border my-0" id="mins-text">00</p>
+            <div onclick="downM(1);"><i class="fs-5 bi bi-caret-down-fill" id="arrow-downM"></i></div>
+        </div>
+    </div>
+
+    <!--par == 2, a.k.a. To:-->
+    <div class="d-flex">
+        <div class="d-flex flex-column justify-content-center mx-1">
+            <div onclick="upH(2);"><i class="fs-5 bi bi-caret-up" id="arrow-upH2"></i></div>
+            <p class="fs-5 border my-0" id="hour-text2">07</p>
+            <div onclick="downH(2);"><i class="fs-5 bi bi-caret-down-fill" id="arrow-downH2"></i></div>
+        </div>
+        <div class="d-flex align-content-middle my-auto">
+            <p class="fs-5 border px-1 my-0">:</p>
+        </div>
+        <div class="d-flex flex-column mx-1">
+            <div onclick="upM(2);"><i class="fs-5 bi bi-caret-up" id="arrow-upM2"></i></div>
+            <p class="fs-5 border my-0" id="mins-text2">00</p>
+            <div onclick="downM(2);"><i class="fs-5 bi bi-caret-down-fill" id="arrow-downM2"></i></div>
+        </div>
+    </div>
+
+    <script>
+        var hour_text = document.getElementById('hour-text');
+        var mins_text = document.getElementById('mins-text');
+        var arrow_upH = document.getElementById('arrow-upH');
+        var arrow_downH = document.getElementById('arrow-downH');
+        var arrow_upM = document.getElementById('arrow-upM');
+        var arrow_downM = document.getElementById('arrow-downM');
+
+        var hour_text2 = document.getElementById('hour-text2');
+        var mins_text2 = document.getElementById('mins-text2');
+        var arrow_upH2 = document.getElementById('arrow-upH2');
+        var arrow_downH2 = document.getElementById('arrow-downH2');
+        var arrow_upM2 = document.getElementById('arrow-upM2');
+        var arrow_downM2 = document.getElementById('arrow-downM2');
+
+        var hour = 7;
+        var min = 0;
+        var hour2 = 7;
+        var min2 = 0;
+
+        function upH(par) {
+            if (par == 1) {
+                if (hour != 7) {
+                    hour--;
+                    hour_text.innerText = (String(hour).padStart(2, '0'));
+                    if (arrow_downH.classList == "fs-5 bi bi-caret-down") {
+                        arrow_downH.classList.add('bi-caret-down-fill');
+                        arrow_downH.classList.remove('bi-caret-down');
+                    }
+                    if (hour == 7) {
+                        arrow_upH.classList.add('bi-caret-up');
+                        arrow_upH.classList.remove('bi-caret-up-fill');
+
+                    }
+                }
+            }
+            else if (par == 2) {
+                if (hour2 != 7) {
+                    hour2--;
+                    hour_text2.innerText = (String(hour2).padStart(2, '0'));
+                    if (arrow_downH2.classList == "fs-5 bi bi-caret-down") {
+                        arrow_downH2.classList.add('bi-caret-down-fill');
+                        arrow_downH2.classList.remove('bi-caret-down');
+                    }
+                    if (hour2 == 7) {
+                        arrow_upH2.classList.add('bi-caret-up');
+                        arrow_upH2.classList.remove('bi-caret-up-fill');
+
+                    }
+                }
+            }
+        }
+
+        function downH(par) {
+            if (par == 1) {
+                if (hour != 20) {
+                    hour++;
+                    hour_text.innerText = (String(hour).padStart(2, '0'));
+                    if (arrow_upH.classList == "fs-5 bi bi-caret-up") {
+                        arrow_upH.classList.add('bi-caret-up-fill');
+                        arrow_upH.classList.remove('bi-caret-up');
+                    }
+                    if (hour == 20) {
+                        arrow_downH.classList.add('bi-caret-down');
+                        arrow_downH.classList.remove('bi-caret-down-fill');
+
+                    }
+                }
+            }
+            else if (par == 2) {
+                if (hour2 != 20) {
+                    hour2++;
+                    hour_text2.innerText = (String(hour2).padStart(2, '0'));
+                    if (arrow_upH2.classList == "fs-5 bi bi-caret-up") {
+                        arrow_upH2.classList.add('bi-caret-up-fill');
+                        arrow_upH2.classList.remove('bi-caret-up');
+                    }
+                    if (hour2 == 20) {
+                        arrow_downH2.classList.add('bi-caret-down');
+                        arrow_downH2.classList.remove('bi-caret-down-fill');
+
+                    }
+                }
+            }
+        }
+
+        function upM(par) {
+            if (par == 1) {
+                if (min != 0) {
+                    min -= 15;
+                    mins_text.innerText = (String(min).padStart(2, '0'));
+                    if (arrow_downM.classList == "fs-5 bi bi-caret-down") {
+                        arrow_downM.classList.add('bi-caret-down-fill');
+                        arrow_downM.classList.remove('bi-caret-down');
+                    }
+                    if (min == 0) {
+                        arrow_upM.classList.add('bi-caret-up');
+                        arrow_upM.classList.remove('bi-caret-up-fill');
+                    }
+                }
+            }
+            else if (par == 2) {
+                if (min2 != 0) {
+                    min2 -= 15;
+                    mins_text2.innerText = (String(min2).padStart(2, '0'));
+                    if (arrow_downM2.classList == "fs-5 bi bi-caret-down") {
+                        arrow_downM2.classList.add('bi-caret-down-fill');
+                        arrow_downM2.classList.remove('bi-caret-down');
+                    }
+                    if (min2 == 0) {
+                        arrow_upM2.classList.add('bi-caret-up');
+                        arrow_upM2.classList.remove('bi-caret-up-fill');
+                    }
+                }
+            }
+        }
+
+        function downM(par) {
+            if (par == 1) {
+                if (min != 45) {
+                    min += 15;
+                    mins_text.innerText = (String(min).padStart(2, '0'));
+                    if (arrow_upM.classList == "fs-5 bi bi-caret-up") {
+                        arrow_upM.classList.add('bi-caret-up-fill');
+                        arrow_upM.classList.remove('bi-caret-up');
+                    }
+                    if (min == 45) {
+                        arrow_downM.classList.add('bi-caret-down');
+                        arrow_downM.classList.remove('bi-caret-down-fill');
+
+                    }
+                }
+            }
+            else if (par == 2) {
+                if (min2 != 45) {
+                    min2 += 15;
+                    mins_text2.innerText = (String(min2).padStart(2, '0'));
+                    if (arrow_upM2.classList == "fs-5 bi bi-caret-up") {
+                        arrow_upM2.classList.add('bi-caret-up-fill');
+                        arrow_upM2.classList.remove('bi-caret-up');
+                    }
+                    if (min2 == 45) {
+                        arrow_downM2.classList.add('bi-caret-down');
+                        arrow_downM2.classList.remove('bi-caret-down-fill');
+
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -19,9 +19,12 @@
             <i class="bi bi-arrow-down-circle-fill fs-1"></i>
         </div>
 
-        <div class="d-inline-flex position-relative justify-content-between"
+        <div class="d-inline-flex position-relative"
             style="background-color: aqua; top: 50px; left: 22px; width: 594px;" id="hour-row">
         </div>
+    </div>
+    <div class="w-100 justify-content-start mt-5">
+        <p class="text-center" id="hour-text">07:00</p>
     </div>
 
 
@@ -50,34 +53,19 @@
                 pos3 = e.clientX;
                 // set the element's new position:
                 elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-                switch (elmnt.style.left) {
-                    case "0px": console.log(availHours[0]); break;
-                    case "22px": console.log(availHours[1]); break;                    
-                    case "44px": console.log(availHours[2]); break;
-                    case "66px": console.log(availHours[3]); break;
-                    case "88px": console.log(availHours[4]); break;
-                    case "110px": console.log(availHours[5]); break;
-                    case "132px": console.log(availHours[6]); break;
-                    case "154px": console.log(availHours[7]); break;
-                    case "176px": console.log(availHours[8]); break;
-                    case "198px": console.log(availHours[9]); break;
-                    case "220px": console.log(availHours[11]); break;                    
-                    case "242px": console.log(availHours[12]); break;                    
-                    case "264px": console.log(availHours[13]); break;
-                    case "286px": console.log(availHours[14]); break;
-                    case "308px": console.log(availHours[15]); break;
-                    case "330px": console.log(availHours[16]); break;
-                    case "352px": console.log(availHours[17]); break;
-                    case "374px": console.log(availHours[18]); break;
-                    case "396px": console.log(availHours[19]); break;
-                    case "418px": console.log(availHours[20]); break;
-                    case "440px": console.log(availHours[21]); break;
-                    case "462px": console.log(availHours[22]); break;                    
-                    case "484px": console.log(availHours[23]); break;
-                    case "506px": console.log(availHours[24]); break;
-                    case "528px": console.log(availHours[25]); break;
-                    case "550px": console.log(availHours[26]); break;
+                let hour_text = document.getElementById('hour-text');
+
+                
+                for (let i = 0; i < 27; i++) {
+                    console.log(line.style.left);
+                    let line = document.getElementById('hour-line' + i);
+                    if (elmnt.style.left >= line.style.left && elmnt.style.left <= (line.style.left + line.style.width)) {
+                        console.log(availHours[i]);
+                        hour_text.innerText = availHours[i];
+                        console.log(2);
+                    }
                 }
+
                 //Setting the borders is not exactly working, its not a feature, its a bug
                 /*if(elmnt.style.left < "-50px" || elmnt.style.left > "600px"){
                     closeDragElement();
@@ -96,6 +84,8 @@
             let addedIndex = 7;
             for (let i = 0; i <= 26; i++) {
                 let hourLine = document.createElement('p');
+                hourLine.classList.add('px-1')
+                hourLine.id = "hour-line" + i;
                 if (i % 2 == 0) {
                     availHours[i] = (i + addedIndex).toString() + ":00";
                     addedIndex--;

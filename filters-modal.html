@@ -5,91 +5,132 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Провери за съответните дати</title>
+    <title>Filters</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        /*@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+        body{
+            font-family: "Poppins", sans-serif;
+        }*/
+    </style>
 </head>
 
 <body onload="setDate();">
 
-    <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Launch demo modal
     </button>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content d-block">
-                <div class="modal-header" style="background-color: #bdbdbd;">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Filters</h1>
+                <div class="modal-header" style="background-color: #D6A51F;">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: #ffffff;">Filters</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body d-flex" style="background-color: #f5f5f5;">
+                <div class="modal-body d-flex" style="background-color: #EDEDEB;">
                     <!--Calendar-->
-                    <div class="col-6 me-1">
-                        <p class="fs-1">Date:</p>
+                    <div class="col-7 me-1">
+                        <p class="fs-1" style="color: 000000;">Date:</p>
                         <div class="justify-content-center">
                             <!--Today-->
                             <div class="d-flex justify-content-between" id="today" onclick="setToday();">
-                                <div class="col-3 justify-content-center text-center py-3"
-                                    style="background-color: #cecece;" id="todays-date"></div>
-                                <div class="col-3 justify-content-center text-center py-3"
-                                    style="background-color: #afadae;" id="todays-month"></div>
-                                <div class="col-6 justify-content-center text-center py-3"
-                                    style="background-color: #787878;" id="todays-year"></div>
+                                <div class="col-3 justify-content-center text-center py-3 fw-bold"
+                                    style="background-color: #E1B02E;" id="todays-date"></div>
+                                <div class="col-3 justify-content-center text-center py-3 fw-bold"
+                                    style="background-color: #C49F39;" id="todays-month"></div>
+                                <div class="col-6 justify-content-center text-center py-3 fw-bold"
+                                    style="background-color: #AF9341;" id="todays-year"></div>
                             </div>
                             <!--Tomorrow-->
                             <div class="d-flex justify-content-between opacity-50" id="tomorrow"
                                 onclick="setTomorrow();">
-                                <div class="col-3 justify-content-center text-center py-3"
-                                    style="background-color: #cecece;" id="tomorrows-date">20</div>
-                                <div class="col-3 justify-content-center text-center py-3"
-                                    style="background-color: #afadae;" id="tomorrows-month">02</div>
-                                <div class="col-6 justify-content-center text-center py-3"
-                                    style="background-color: #787878;" id="tomorrows-year">2024</div>
+                                <div class="col-3 justify-content-center text-center py-3 fw-bold"
+                                    style="background-color: #E6BD4C;" id="tomorrows-date">20</div>
+                                <div class="col-3 justify-content-center text-center py-3 fw-bold"
+                                    style="background-color: #C49F39;" id="tomorrows-month">02</div>
+                                <div class="col-6 justify-content-center text-center py-3 fw-bold"
+                                    style="background-color: #AF9341;" id="tomorrows-year">2024</div>
                             </div>
                             <!--Buttons-->
-                            <div class="my-2 w-100 d-flex justify-content-center">
+                            <div class="my-2 mt-3 w-100 d-flex justify-content-center">
                                 <button type="button" class="btn me-1" id="btn-today"
-                                    style="background-color: #202020; border-color: #202020; color: #ffffff;"
+                                    style="background-color: #202020; border-color: #202020; color: #E6BD4C;"
                                     onclick="setToday();">Today</button>
                                 <button type="button" class="btn ms-1" id="btn-tomorrow"
-                                    style="background-color: #ffffff; border-color: #202020; color: #000000;"
+                                    style="background-color: #E6BD4C; border-color: #202020; color: #000000;"
                                     onclick="setTomorrow();">Tomorrow</button>
                             </div>
                         </div>
                     </div>
 
                     <!--Hours-->
-                    <div class="col-6 ms-2 d-flex flex-column justify-content-center">
-                        <p class="fs-1">Set Time:</p>
+                    <div class="col-5 ms-2 d-flex flex-column justify-content-center">
+                        <p class="fs-1 mb-0">Set Time:</p>
                         <div class="d-flex flex-column justify-content-center">
-                            <p class="fs-5 mb-1">From:</p>
-                            <input type="text" class="form-control" id="timeInput" name="timeInput" placeholder="HH:MM"
-                                onblur="validateTimeInput(this)" required onkeyup="checkFormat(this.value, this);">
-                            <small>Format: HH:MM (24-hour format)</small>
+                            <p class="fs-4 mb-0">From:</p>
+                            <!--par == 1, a.k.a. From:-->
+                            <div class="d-flex w-100 justify-content-center">
+                                <div class="d-flex flex-column justify-content-center mx-1">
+                                    <div onclick="upH(1);"><i class="fs-4 bi bi-caret-up" id="arrow-upH"></i></div>
+                                    <p class="fs-5 px-1 border my-0" id="hour-text">07</p>
+                                    <div onclick="downH(1);"><i class="fs-4 bi bi-caret-down-fill" id="arrow-downH"></i>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-content-middle my-auto">
+                                    <p class="fs-5 border px-2 my-0">:</p>
+                                </div>
+                                <div class="d-flex flex-column mx-1">
+                                    <div onclick="upM(1);"><i class="fs-4 bi bi-caret-up" id="arrow-upM"></i></div>
+                                    <p class="fs-5 px-1 border my-0" id="mins-text">00</p>
+                                    <div onclick="downM(1);"><i class="fs-4 bi bi-caret-down-fill" id="arrow-downM"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="mt-1 d-flex flex-column justify-content-center">
-                            <p class="fs-5 mb-1">To:</p>
-                            <input type="time" id="hour" min="07:00" max="20:00" value="07:00" required />
+                            <p class="fs-4 mb-0">To:</p>
+                            <!--par == 2, a.k.a. To:-->
+                            <div class="d-flex w-100 justify-content-center">
+                                <div class="d-flex flex-column justify-content-center mx-1">
+                                    <div onclick="upH(2);"><i class="fs-5 bi bi-caret-up" id="arrow-upH2"></i></div>
+                                    <p class="fs-5 px-1 border my-0" id="hour-text2">07</p>
+                                    <div onclick="downH(2);"><i class="fs-5 bi bi-caret-down-fill"
+                                            id="arrow-downH2"></i></div>
+                                </div>
+                                <div class="d-flex align-content-middle my-auto">
+                                    <p class="fs-5 border px-2 my-0">:</p>
+                                </div>
+                                <div class="d-flex flex-column mx-1">
+                                    <div onclick="upM(2);"><i class="fs-5 bi bi-caret-up" id="arrow-upM2"></i></div>
+                                    <p class="fs-5 px-1 border my-0" id="mins-text2">00</p>
+                                    <div onclick="downM(2);"><i class="fs-5 bi bi-caret-down-fill"
+                                            id="arrow-downM2"></i></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer" style="background-color: #bdbdbd;">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                <div class="modal-footer" style="background-color: #D6A51F;">
+                    <button type="button" class="btn btn-primary" onclick="applyingFilters();">Apply filters</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        //DATE
         var btn_today = document.getElementById('btn-today');
         var btn_tomorrow = document.getElementById('btn-tomorrow');
         var today = document.getElementById('today');
         var tomorrow = document.getElementById('tomorrow');
+
+        var todayDate;
+        var tomorrowDate;
+        var todaybool = true;
 
         /*Get Date*/
         function setDate() {
@@ -97,38 +138,42 @@
             let day = date.getDate();
             let month = date.getMonth() + 1;
             let year = date.getFullYear();
+            todayDate = (String(day).padStart(2, '0')) + "/" + (String(month).padStart(2, '0')) + "/" + (String(year).padStart(4, '0'));
 
-            document.getElementById('todays-date').innerHTML = day;
-            document.getElementById('todays-month').innerHTML = month;
-            document.getElementById('todays-year').innerHTML = year;
+            document.getElementById('todays-date').innerHTML = (String(day).padStart(2, '0'));
+            document.getElementById('todays-month').innerHTML = (String(month).padStart(2, '0'));
+            document.getElementById('todays-year').innerHTML = (String(year).padStart(4, '0'));
 
             var currentDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
             day = currentDate.getDate();
             month = currentDate.getMonth() + 1;
             year = currentDate.getFullYear();
+            tomorrowDate = (String(day).padStart(2, '0')) + "/" + (String(month).padStart(2, '0')) + "/" + (String(year).padStart(4, '0'));
 
-            document.getElementById('tomorrows-date').innerHTML = day;
-            document.getElementById('tomorrows-month').innerHTML = month;
-            document.getElementById('tomorrows-year').innerHTML = year;
+            document.getElementById('tomorrows-date').innerHTML = (String(day).padStart(2, '0'));
+            document.getElementById('tomorrows-month').innerHTML = (String(month).padStart(2, '0'));
+            document.getElementById('tomorrows-year').innerHTML = (String(year).padStart(4, '0'));
         }
 
         function setToday() {
+            todaybool = true;
             /*Activate Today btn*/
             btn_today.style.backgroundColor = '#202020';
             btn_today.style.borderBlockColor = '#202020';
-            btn_today.style.color = '#ffffff';
+            btn_today.style.color = '#E6BD4C';
             today.classList.remove('opacity-50');
 
             /*Deactivate Tomorrow btn*/
-            btn_tomorrow.style.backgroundColor = '#ffffff';
+            btn_tomorrow.style.backgroundColor = '#E6BD4C';
             btn_tomorrow.style.borderBlockColor = '#202020';
             btn_tomorrow.style.color = '#000000';
             tomorrow.classList.add('opacity-50');
 
         }
         function setTomorrow() {
+            todaybool = false;
             /*Deactivate Today btn*/
-            btn_today.style.backgroundColor = '#ffffff';
+            btn_today.style.backgroundColor = '#E6BD4C';
             btn_today.style.borderBlockColor = '#202020';
             btn_today.style.color = '#000000';
             today.classList.add('opacity-50');
@@ -136,17 +181,179 @@
             /*Activate Tomorrow btn*/
             btn_tomorrow.style.backgroundColor = '#202020';
             btn_tomorrow.style.borderBlockColor = '#202020';
-            btn_tomorrow.style.color = '#ffffff';
+            btn_tomorrow.style.color = '#E6BD4C';
             tomorrow.classList.remove('opacity-50');
         }
 
-        function checkFormat(time, obj) {
-            time = time.toString();
-            console.log(time.lenght);
-            if (time.lenght == 2) {
-                time = time + ":"
-                obj.innerHTML = time;
+        //HOURS
+        var hour_text = document.getElementById('hour-text');
+        var mins_text = document.getElementById('mins-text');
+        var arrow_upH = document.getElementById('arrow-upH');
+        var arrow_downH = document.getElementById('arrow-downH');
+        var arrow_upM = document.getElementById('arrow-upM');
+        var arrow_downM = document.getElementById('arrow-downM');
+
+        var hour_text2 = document.getElementById('hour-text2');
+        var mins_text2 = document.getElementById('mins-text2');
+        var arrow_upH2 = document.getElementById('arrow-upH2');
+        var arrow_downH2 = document.getElementById('arrow-downH2');
+        var arrow_upM2 = document.getElementById('arrow-upM2');
+        var arrow_downM2 = document.getElementById('arrow-downM2');
+
+        var hour = 7;
+        var min = 0;
+        var hour2 = 7;
+        var min2 = 0;
+
+        function upH(par) {
+            if (par == 1) {
+                if (hour != 7) {
+                    hour--;
+                    hour_text.innerText = (String(hour).padStart(2, '0'));
+                    if (arrow_downH.classList == "fs-5 bi bi-caret-down") {
+                        arrow_downH.classList.add('bi-caret-down-fill');
+                        arrow_downH.classList.remove('bi-caret-down');
+                    }
+                    if (hour == 7) {
+                        arrow_upH.classList.add('bi-caret-up');
+                        arrow_upH.classList.remove('bi-caret-up-fill');
+
+                    }
+                }
             }
+            else if (par == 2) {
+                if (hour2 != 7) {
+                    hour2--;
+                    hour_text2.innerText = (String(hour2).padStart(2, '0'));
+                    if (arrow_downH2.classList == "fs-5 bi bi-caret-down") {
+                        arrow_downH2.classList.add('bi-caret-down-fill');
+                        arrow_downH2.classList.remove('bi-caret-down');
+                    }
+                    if (hour2 == 7) {
+                        arrow_upH2.classList.add('bi-caret-up');
+                        arrow_upH2.classList.remove('bi-caret-up-fill');
+
+                    }
+                }
+            }
+        }
+
+        function downH(par) {
+            if (par == 1) {
+                if (hour != 20) {
+                    hour++;
+                    hour_text.innerText = (String(hour).padStart(2, '0'));
+                    if (arrow_upH.classList == "fs-4 bi bi-caret-up") {
+                        arrow_upH.classList.add('bi-caret-up-fill');
+                        arrow_upH.classList.remove('bi-caret-up');
+                    }
+                    if (hour == 20) {
+                        arrow_downH.classList.add('bi-caret-down');
+                        arrow_downH.classList.remove('bi-caret-down-fill');
+
+                    }
+                }
+            }
+            else if (par == 2) {
+                if (hour2 != 20) {
+                    hour2++;
+                    hour_text2.innerText = (String(hour2).padStart(2, '0'));
+                    if (arrow_upH2.classList == "fs-4 bi bi-caret-up") {
+                        arrow_upH2.classList.add('bi-caret-up-fill');
+                        arrow_upH2.classList.remove('bi-caret-up');
+                    }
+                    if (hour2 == 20) {
+                        arrow_downH2.classList.add('bi-caret-down');
+                        arrow_downH2.classList.remove('bi-caret-down-fill');
+
+                    }
+                }
+            }
+        }
+
+        function upM(par) {
+            if (par == 1) {
+                if (min != 0) {
+                    min -= 15;
+                    mins_text.innerText = (String(min).padStart(2, '0'));
+                    if (arrow_downM.classList == "fs-4 bi bi-caret-down") {
+                        arrow_downM.classList.add('bi-caret-down-fill');
+                        arrow_downM.classList.remove('bi-caret-down');
+                    }
+                    if (min == 0) {
+                        arrow_upM.classList.add('bi-caret-up');
+                        arrow_upM.classList.remove('bi-caret-up-fill');
+                    }
+                }
+            }
+            else if (par == 2) {
+                if (min2 != 0) {
+                    min2 -= 15;
+                    mins_text2.innerText = (String(min2).padStart(2, '0'));
+                    if (arrow_downM2.classList == "fs-4 bi bi-caret-down") {
+                        arrow_downM2.classList.add('bi-caret-down-fill');
+                        arrow_downM2.classList.remove('bi-caret-down');
+                    }
+                    if (min2 == 0) {
+                        arrow_upM2.classList.add('bi-caret-up');
+                        arrow_upM2.classList.remove('bi-caret-up-fill');
+                    }
+                }
+            }
+        }
+
+        function downM(par) {
+            if (par == 1) {
+                if (min != 45) {
+                    min += 15;
+                    mins_text.innerText = (String(min).padStart(2, '0'));
+                    if (arrow_upM.classList == "fs-4 bi bi-caret-up") {
+                        arrow_upM.classList.add('bi-caret-up-fill');
+                        arrow_upM.classList.remove('bi-caret-up');
+                    }
+                    if (min == 45) {
+                        arrow_downM.classList.add('bi-caret-down');
+                        arrow_downM.classList.remove('bi-caret-down-fill');
+
+                    }
+                }
+            }
+            else if (par == 2) {
+                if (min2 != 45) {
+                    min2 += 15;
+                    mins_text2.innerText = (String(min2).padStart(2, '0'));
+                    if (arrow_upM2.classList == "fs-4 bi bi-caret-up") {
+                        arrow_upM2.classList.add('bi-caret-up-fill');
+                        arrow_upM2.classList.remove('bi-caret-up');
+                    }
+                    if (min2 == 45) {
+                        arrow_downM2.classList.add('bi-caret-down');
+                        arrow_downM2.classList.remove('bi-caret-down-fill');
+
+                    }
+                }
+            }
+        }
+
+        //APPLYING FILTERS
+        function applyingFilters() {
+            let result;
+            if (todaybool == true) { result = todayDate; }
+            else { result = tomorrowDate; }
+
+            let fromTime = hour * 60 + min;
+            let toTime = hour2 * 60 + min2;
+            if (((toTime - fromTime) < 15)) {
+                alert("Less than 15-minute stay.");
+                return "ERROR";
+            }
+            else if ((toTime - fromTime) > 8 * 60) {
+                alert("Over 8-hour stay.");
+                return "ERROR";
+            }
+
+            result += ", from:" + (String(hour).padStart(2, '0')) + ":" + (String(min).padStart(2, '0')) + " to:" + (String(hour2).padStart(2, '0')) + ":" + (String(min2).padStart(2, '0'));
+            alert(result);
         }
     </script>
 </body>
