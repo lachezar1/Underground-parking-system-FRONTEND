@@ -156,7 +156,7 @@
             let headers = new Headers();
 
             headers.set('Authorization', 'Basic ' + btoa(username + ":" + password));
-            headers.append('Authorization', 'Basic' + btoa(username + ":" + password));
+            headers.append('Authorization', 'Basic' + base64.encode(username + ":" + password));
 
             fetch(`${url}/User/Login`, {
                 method: 'GET',
