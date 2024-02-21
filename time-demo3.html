@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body onload="load()">
+    <div class="d-flex flex-row">
+        <i class="fs-2 px-2 bi bi-caret-left-fill" onclick="prevTime()" id="prev-arrow"></i>
+        <div id="time-line" class="d-flex flex-row justify-content-between align-content-middle my-auto col-6">
+        </div>
+        <i class="fs-2 px-2 bi bi-caret-right-fill" onclick="nextTime()" id="next-arrow"></i>
+    </div>
+
+    <script>
+        const hours = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+        const mins = [0, 30];
+
+        var time_line = document.getElementById('time-line');
+        var h = 0;
+        var m = 0;
+        function load() {
+            let hourIndex = -1;
+            let minIndex = 1;
+            for (let i = 0; i < hours.length * mins.length - 1; i++) {
+                let time = document.createElement('div');
+                if (i % 2 == 0) {
+                    minIndex--;
+                    hourIndex++;
+                }
+                else {
+                    minIndex++;
+
+                }
+                time.style.cursor = 'pointer';
+                time.id = hours[hourIndex] + "-" + mins[minIndex];
+                time.innerHTML = '|';
+                time_line.appendChild(time);
+                time.addEventListener("click", function () {
+                    let another_time = document.getElementById(hours[h] + "-" + mins[m]);
+                    another_time.innerHTML = '|';
+                    another_time.style.backgroundColor = null;
+
+                    h = Math.floor(i / 2);
+                    m = i % 2;
+                    time = document.getElementById(hours[h] + "-" + mins[m]);
+                    time.innerText = (String(hours[h]).padStart(2, '0')) + ":" + (String(mins[m]).padStart(2, '0'));
+                    time.style.backgroundColor = '#fff';
+                    checkArrows();
+                });
+
+
+            }
+            //start time
+            time = document.getElementById(hours[h] + "-" + mins[m]);
+            time.innerText = (String(hours[h]).padStart(2, '0')) + ":" + (String(mins[m]).padStart(2, '0'));
+            time.style.backgroundColor = '#fff';
+            checkArrows();
+        }
+
+        function nextTime() {
+            if (h == (hours.length - 1) && m == 0) {
+            }
+            else {
+                let time = document.getElementById(hours[h] + "-" + mins[m]);
+                time.innerText = '|';
+                time.style.backgroundColor = null;
+                if (m == 0) {
+                    m++;
+                }
+                else {
+                    m--;
+                    h++;
+                }
+                time = document.getElementById(hours[h] + "-" + mins[m]);
+                time.innerText = (String(hours[h]).padStart(2, '0')) + ":" + (String(mins[m]).padStart(2, '0'));
+                time.style.backgroundColor = '#fff';
+                checkArrows();
+            }
+        }
+
+        function prevTime() {
+            if (h == 0 && m == 0) {
+            }
+            else {
+                let time = document.getElementById(hours[h] + "-" + mins[m]);
+                time.innerText = '|';
+                time.style.backgroundColor = null;
+                if (m == 0) {
+                    m++;
+                    h--;
+                }
+                else {
+                    m--;
+                }
+                time = document.getElementById(hours[h] + "-" + mins[m]);
+                time.innerText = (String(hours[h]).padStart(2, '0')) + ":" + (String(mins[m]).padStart(2, '0'));
+                time.style.backgroundColor = '#fff';
+                checkArrows();
+            }
+        }
+
+        function checkArrows() {
+            let prev_arrow = document.getElementById('prev-arrow');
+            let next_arrow = document.getElementById('next-arrow');
+            if (h == 0 && m == 0) {
+                prev_arrow.classList.add('bi-caret-left');
+                prev_arrow.classList.remove('bi-caret-left-fill');
+            }
+            else {
+                prev_arrow.classList.remove('bi-caret-left');
+                prev_arrow.classList.add('bi-caret-left-fill');
+            }
+
+            if (h == (hours.length - 1) && m == 0) {
+                next_arrow.classList.add('bi-caret-right');
+                next_arrow.classList.remove('bi-caret-right-fill');
+            }
+            else {
+                next_arrow.classList.remove('bi-caret-right');
+                next_arrow.classList.add('bi-caret-right-fill');
+            }
+        }
+
+    </script>
+</body>
+
+</html>

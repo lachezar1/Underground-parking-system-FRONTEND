@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filters</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+        body {
+            font-family: "Poppins", sans-serif;
+        }
+    </style>
+</head>
+
+<body onload="load();">
+
+    <!--CHUPI SE NA WIDTH=450PX-->
+
+    <button type="button" class="btn fw-bold" id="filter-btn" data-bs-toggle="modal" data-bs-target="#date-filter"
+        style="background-color: #E6BD4C; border-color: #000000; color: #000000;" onclick="restartFilter();">
+        Open Filters
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="date-filter" tabindex="-1" aria-labelledby="date-filterLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-lg-down">
+            <div class="modal-content d-block">
+                <div class="modal-header" style="background-color: #202020;">
+                    <h1 class="modal-title fs-3 ms-3" id="date-filterLabel" style="color: #E1B02E;">Filters</h1>
+                    <button type="button" class="btn p-0" data-bs-dismiss="modal" aria-label="Close"
+                        id="close-filter"><i class="bi bi-x fs-1" style="color: #E1B02E;"></i></button>
+                </div>
+                <div class="modal-body d-flex" style="background-color: #EDEDEB;">
+                    <!--Calendar-->
+                    <div class="col-5 me-md-5 me-1">
+                        <p class="fs-1" style="color: 000000;">Date:</p>
+                        <div class="justify-content-center">
+                            <!--Today-->
+                            <div class="d-flex justify-content-between" id="today" onclick="setToday();">
+                                <div class="col-3 justify-content-center text-center py-3 fw-bold"
+                                    style="background-color: #E1B02E;" id="todays-date"></div>
+                                <div class="col-3 justify-content-center text-center py-3 fw-bold"
+                                    style="background-color: #C49F39;" id="todays-month"></div>
+                                <div class="col-6 justify-content-center text-center py-3 fw-bold"
+                                    style="background-color: #AF9341;" id="todays-year"></div>
+                            </div>
+                            <!--Tomorrow-->
+                            <div class="d-flex justify-content-between opacity-50" id="tomorrow"
+                                onclick="setTomorrow();">
+                                <div class="col-3 justify-content-center text-center py-3 fw-bold"
+                                    style="background-color: #E6BD4C;" id="tomorrows-date"></div>
+                                <div class="col-3 justify-content-center text-center py-3 fw-bold"
+                                    style="background-color: #C49F39;" id="tomorrows-month"></div>
+                                <div class="col-6 justify-content-center text-center py-3 fw-bold"
+                                    style="background-color: #AF9341;" id="tomorrows-year"></div>
+                            </div>
+                            <!--Buttons-->
+                            <div class="my-2 mt-3 w-100 d-flex justify-content-center">
+                                <button type="button" class="btn me-1" id="btn-today"
+                                    style="background-color: #202020; border-color: #202020; color: #E6BD4C;"
+                                    onclick="setToday();">Today</button>
+                                <button type="button" class="btn ms-1" id="btn-tomorrow"
+                                    style="background-color: #E6BD4C; border-color: #202020; color: #000000;"
+                                    onclick="setTomorrow();">Tomorrow</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Hours-->
+                    <div class="col-7 d-flex flex-column justify-content-center">
+                        <p class="fs-1 mb-0">Set Time:</p>
+                        <div class="d-flex flex-column justify-content-center">
+                            <p class="fs-4 mb-0 col-2">From:</p>
+                            <!--From:-->
+                            <div class="d-flex flex-row w-100">
+                                <i class="fs-1 pe-1 bi bi-caret-left-fill" onclick="prevTime()" id="prev-arrow"
+                                    style="color: #202020;" onmouseover="this.style.color = '#E1B02E';"
+                                    onmouseleave="this.style.color = '#202020';"></i>
+                                <div id="time-line"
+                                    class="d-flex flex-row justify-content-between align-content-middle my-auto">
+                                </div>
+                                <i class="fs-1 ps-1 bi bi-caret-right-fill" onclick="nextTime()" id="next-arrow"
+                                    style="color: #202020;" onmouseover="this.style.color = '#E1B02E';"
+                                    onmouseleave="this.style.color = '#202020';"></i>
+                            </div>
+                        </div>
+                        <div class="mt-1 d-flex flex-column justify-content-center">
+                            <p class="fs-4 mb-0 col-2">To:</p>
+                            <!--To:-->
+                            <div class="d-flex flex-row w-100">
+                                <i class="fs-1 pe-1 bi bi-caret-left-fill" onclick="prevTime2()" id="prev-arrow2"
+                                    style="color: #202020;" onmouseover="this.style.color = '#E1B02E';"
+                                    onmouseleave="this.style.color = '#202020';"></i>
+                                <div id="time-line2"
+                                    class="d-flex flex-row justify-content-between align-content-middle my-auto">
+                                </div>
+                                <i class="fs-1 ps-1 bi bi-caret-right-fill" onclick="nextTime2()" id="next-arrow2"
+                                    style="color: #202020;" onmouseover="this.style.color = '#E1B02E';"
+                                    onmouseleave="this.style.color = '#202020';"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="background-color: #202020;">
+                    <button type="button" class="btn" onclick="applyingFilters();"
+                        style="background-color: #E6BD4C; border-color: #000000; color: #000000;">Apply filters</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //DATE
+        var btn_today = document.getElementById('btn-today');
+        var btn_tomorrow = document.getElementById('btn-tomorrow');
+        var today = document.getElementById('today');
+        var tomorrow = document.getElementById('tomorrow');
+
+        var todayDate;
+        var tomorrowDate;
+        var todaybool = true;
+
+        function load() {
+            setDate();
+            setHours();
+            setHours2();
+        }
+        /*Get Date*/
+        function setDate() {
+            document.getElementById('filter-btn').click();
+            const date = new Date();
+            let day = date.getDate();
+            let month = date.getMonth() + 1;
+            let year = date.getFullYear();
+            todayDate = (String(day).padStart(2, '0')) + "/" + (String(month).padStart(2, '0')) + "/" + (String(year).padStart(4, '0'));
+
+            document.getElementById('todays-date').innerHTML = (String(day).padStart(2, '0'));
+            document.getElementById('todays-month').innerHTML = (String(month).padStart(2, '0'));
+            document.getElementById('todays-year').innerHTML = (String(year).padStart(4, '0'));
+
+            var currentDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+            day = currentDate.getDate();
+            month = currentDate.getMonth() + 1;
+            year = currentDate.getFullYear();
+            tomorrowDate = (String(day).padStart(2, '0')) + "/" + (String(month).padStart(2, '0')) + "/" + (String(year).padStart(4, '0'));
+
+            document.getElementById('tomorrows-date').innerHTML = (String(day).padStart(2, '0'));
+            document.getElementById('tomorrows-month').innerHTML = (String(month).padStart(2, '0'));
+            document.getElementById('tomorrows-year').innerHTML = (String(year).padStart(4, '0'));
+        }
+
+        function setToday() {
+            todaybool = true;
+            /*Activate Today btn*/
+            btn_today.style.backgroundColor = '#202020';
+            btn_today.style.borderBlockColor = '#202020';
+            btn_today.style.color = '#E6BD4C';
+            today.classList.remove('opacity-50');
+
+            /*Deactivate Tomorrow btn*/
+            btn_tomorrow.style.backgroundColor = '#E6BD4C';
+            btn_tomorrow.style.borderBlockColor = '#202020';
+            btn_tomorrow.style.color = '#000000';
+            tomorrow.classList.add('opacity-50');
+
+        }
+        function setTomorrow() {
+            todaybool = false;
+            /*Deactivate Today btn*/
+            btn_today.style.backgroundColor = '#E6BD4C';
+            btn_today.style.borderBlockColor = '#202020';
+            btn_today.style.color = '#000000';
+            today.classList.add('opacity-50');
+
+            /*Activate Tomorrow btn*/
+            btn_tomorrow.style.backgroundColor = '#202020';
+            btn_tomorrow.style.borderBlockColor = '#202020';
+            btn_tomorrow.style.color = '#E6BD4C';
+            tomorrow.classList.remove('opacity-50');
+        }
+
+        //HOURS FROM
+        const hours = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+        const mins = [0, 30];
+
+        var time_line = document.getElementById('time-line');
+        var h = 0;
+        var m = 0;
+        function setHours() {
+            let hourIndex = -1;
+            let minIndex = 1;
+            time_line.innerHTML = null;
+            for (let i = 0; i < hours.length * mins.length - 1; i++) {
+                let time = document.createElement('div');
+                if (i % 2 == 0) {
+                    minIndex--;
+                    hourIndex++;
+                }
+                else {
+                    minIndex++;
+
+                }
+                time.style.cursor = 'pointer';
+                time.classList.add('fs-6', 'd-flex', 'align-middle', 'm-auto');
+                time.id = hours[hourIndex] + "-" + mins[minIndex];
+                time.innerHTML = '|';
+                time_line.appendChild(time);
+                time.addEventListener("click", function () {
+                    clearOldTime();
+
+                    h = Math.floor(i / 2);
+                    m = i % 2;
+                    selectNewTime();
+                });
+
+                time.addEventListener("mouseover", function () {
+                    time.style.color = '#E1B02E';
+                });
+                time.addEventListener("mouseleave", function () {
+                    time.style.color = '#202020';
+                });
+            }
+            //start time
+            selectNewTime();
+        }
+
+        function nextTime() {
+            if (h == (hours.length - 1) && m == 0) {
+            }
+            else {
+                clearOldTime();
+                if (m == 0) {
+                    m++;
+                }
+                else {
+                    m--;
+                    h++;
+                }
+                selectNewTime();
+            }
+        }
+
+        function prevTime() {
+            if (h == 0 && m == 0) {
+            }
+            else {
+                clearOldTime();
+                if (m == 0) {
+                    m++;
+                    h--;
+                }
+                else {
+                    m--;
+                }
+                selectNewTime();
+            }
+        }
+
+        function clearOldTime() {
+            let old_time = document.getElementById(hours[h] + "-" + mins[m]);
+            old_time.classList.remove('fs-4');
+            old_time.innerHTML = '|';
+            old_time.style.backgroundColor = null;
+        }
+
+        function selectNewTime() {
+            let time = document.getElementById(hours[h] + "-" + mins[m]);
+            time.classList.add('fs-4');
+            time.innerText = (String(hours[h]).padStart(2, '0')) + ":" + (String(mins[m]).padStart(2, '0'));
+            time.style.backgroundColor = '';
+            checkArrows();
+        }
+
+        function checkArrows() {
+            let prev_arrow = document.getElementById('prev-arrow');
+            let next_arrow = document.getElementById('next-arrow');
+            if (h == 0 && m == 0) {
+                prev_arrow.classList.add('bi-caret-left');
+                prev_arrow.classList.remove('bi-caret-left-fill');
+            }
+            else {
+                prev_arrow.classList.remove('bi-caret-left');
+                prev_arrow.classList.add('bi-caret-left-fill');
+            }
+
+            if (h == (hours.length - 1) && m == 0) {
+                next_arrow.classList.add('bi-caret-right');
+                next_arrow.classList.remove('bi-caret-right-fill');
+            }
+            else {
+                next_arrow.classList.remove('bi-caret-right');
+                next_arrow.classList.add('bi-caret-right-fill');
+            }
+        }
+
+        //HOURS TO
+        var time_line2 = document.getElementById('time-line2');
+        var h2 = 0;
+        var m2 = 0;
+
+        function setHours2() {
+            let hourIndex = -1;
+            let minIndex = 1;
+            time_line2.innerHTML = null;
+            for (let i = 0; i < hours.length * mins.length - 1; i++) {
+                let time = document.createElement('div');
+                if (i % 2 == 0) {
+                    minIndex--;
+                    hourIndex++;
+                }
+                else {
+                    minIndex++;
+
+                }
+                time.style.cursor = 'pointer';
+                time.classList.add('fs-6', 'd-flex', 'align-middle', 'm-auto');
+                time.id = hours[hourIndex] + "-" + mins[minIndex] + ".2";
+                time.innerHTML = '|';
+                time_line2.appendChild(time);
+                time.addEventListener("click", function () {
+                    clearOldTime2();
+
+                    h = Math.floor(i / 2);
+                    m = i % 2;
+                    selectNewTime2();
+                });
+
+                time.addEventListener("mouseover", function () {
+                    time.style.color = '#E1B02E';
+                });
+                time.addEventListener("mouseleave", function () {
+                    time.style.color = '#202020';
+                });
+            }
+            //start time
+            selectNewTime2();
+        }
+
+        function nextTime2() {
+            if (h2 == (hours.length - 1) && m2 == 0) {
+            }
+            else {
+                clearOldTime2();
+                if (m2 == 0) {
+                    m2++;
+                }
+                else {
+                    m2--;
+                    h2++;
+                }
+                selectNewTime2();
+            }
+        }
+        function prevTime2() {
+            if (h2 == 0 && m2 == 0) {
+            }
+            else {
+                clearOldTime2();
+                if (m2 == 0) {
+                    m2++;
+                    h2--;
+                }
+                else {
+                    m2--;
+                }
+                selectNewTime2();
+            }
+        }
+
+        function clearOldTime2() {
+            let old_time = document.getElementById(hours[h2] + "-" + mins[m2] + ".2");
+            old_time.classList.remove('fs-4');
+            old_time.innerHTML = '|';
+            old_time.style.backgroundColor = null;
+        }
+
+        function selectNewTime2() {
+            let time = document.getElementById(hours[h2] + "-" + mins[m2] + ".2");
+            time.classList.add('fs-4');
+            time.innerText = (String(hours[h2]).padStart(2, '0')) + ":" + (String(mins[m2]).padStart(2, '0'));
+            time.style.backgroundColor = '';
+            checkArrows2();
+        }
+
+        function checkArrows2() {
+            let prev_arrow2 = document.getElementById('prev-arrow2');
+            let next_arrow2 = document.getElementById('next-arrow2');
+            if (h2 == 0 && m2 == 0) {
+                prev_arrow2.classList.add('bi-caret-left');
+                prev_arrow2.classList.remove('bi-caret-left-fill');
+            }
+            else {
+                prev_arrow2.classList.remove('bi-caret-left');
+                prev_arrow2.classList.add('bi-caret-left-fill');
+            }
+
+            if (h2 == (hours.length - 1) && m2 == 0) {
+                next_arrow2.classList.add('bi-caret-right');
+                next_arrow2.classList.remove('bi-caret-right-fill');
+            }
+            else {
+                next_arrow2.classList.remove('bi-caret-right');
+                next_arrow2.classList.add('bi-caret-right-fill');
+            }
+        }
+
+        //APPLYING FILTERS
+        function applyingFilters() {
+            let result;
+            if (todaybool == true) { result = todayDate; }
+            else { result = tomorrowDate; }
+
+            let fromTime = hours[h] * 60 + mins[m];
+            let toTime = hours[h2] * 60 + mins[m2];
+            if (((toTime - fromTime) < 30)) {
+                if ((toTime - fromTime) >= 0) {
+                    alert("Less than 30-minute stay.");
+                }
+                else {
+                    alert("Invalid time interval.");
+                }
+                return "ERROR";
+            }
+            else if ((toTime - fromTime) > 8 * 60) {
+                alert("Over 8-hour stay.");
+                return "ERROR";
+            }
+
+            result += ", from: " + (String(hours[h]).padStart(2, '0')) + ":" + (String(mins[m]).padStart(2, '0')) + " to: " + (String(hours[h2]).padStart(2, '0')) + ":" + (String(mins[m2]).padStart(2, '0'));
+            alert(result);
+            document.getElementById('close-filter').click();
+        }
+
+        //RESTARTING THE MODAL
+        function restartFilter() {
+            h = 0; m = 0; setHours();
+            h2 = 0; m2 = 0; setHours2();
+            setToday();
+        }
+
+    </script>
+</body>
+
+</html>

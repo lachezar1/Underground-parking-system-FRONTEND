@@ -10,30 +10,33 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-        /*@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
-        body{
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+        body {
             font-family: "Poppins", sans-serif;
-        }*/
+        }
     </style>
 </head>
 
 <body onload="setDate();">
 
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Launch demo modal
+    <button type="button" class="btn fw-bold" id="filter-btn" data-bs-toggle="modal" data-bs-target="#date-filter"
+        style="background-color: #E6BD4C; border-color: #000000; color: #000000;" onclick="restartFilter();">
+        Open Filters
     </button>
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+    <div class="modal fade" id="date-filter" tabindex="-1" aria-labelledby="date-filterLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-lg-down">
             <div class="modal-content d-block">
-                <div class="modal-header" style="background-color: #D6A51F;">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: #ffffff;">Filters</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header" style="background-color: #202020;">
+                    <h1 class="modal-title fs-3 ms-3" id="date-filterLabel" style="color: #E1B02E;">Filters</h1>
+                    <button type="button" class="btn p-0" data-bs-dismiss="modal" aria-label="Close"
+                        id="close-filter"><i class="bi bi-x fs-1" style="color: #E1B02E;"></i></button>
                 </div>
                 <div class="modal-body d-flex" style="background-color: #EDEDEB;">
                     <!--Calendar-->
-                    <div class="col-7 me-1">
+                    <div class="col-6 col-md-7 me-md-5 me-1">
                         <p class="fs-1" style="color: 000000;">Date:</p>
                         <div class="justify-content-center">
                             <!--Today-->
@@ -49,11 +52,11 @@
                             <div class="d-flex justify-content-between opacity-50" id="tomorrow"
                                 onclick="setTomorrow();">
                                 <div class="col-3 justify-content-center text-center py-3 fw-bold"
-                                    style="background-color: #E6BD4C;" id="tomorrows-date">20</div>
+                                    style="background-color: #E6BD4C;" id="tomorrows-date"></div>
                                 <div class="col-3 justify-content-center text-center py-3 fw-bold"
-                                    style="background-color: #C49F39;" id="tomorrows-month">02</div>
+                                    style="background-color: #C49F39;" id="tomorrows-month"></div>
                                 <div class="col-6 justify-content-center text-center py-3 fw-bold"
-                                    style="background-color: #AF9341;" id="tomorrows-year">2024</div>
+                                    style="background-color: #AF9341;" id="tomorrows-year"></div>
                             </div>
                             <!--Buttons-->
                             <div class="my-2 mt-3 w-100 d-flex justify-content-center">
@@ -70,52 +73,77 @@
                     <!--Hours-->
                     <div class="col-5 ms-2 d-flex flex-column justify-content-center">
                         <p class="fs-1 mb-0">Set Time:</p>
-                        <div class="d-flex flex-column justify-content-center">
-                            <p class="fs-4 mb-0">From:</p>
+                        <div class="d-flex flex-column flex-lg-row justify-content-center">
+                            <p class="fs-4 mb-0 col-2">From:</p>
                             <!--par == 1, a.k.a. From:-->
                             <div class="d-flex w-100 justify-content-center">
                                 <div class="d-flex flex-column justify-content-center mx-1">
-                                    <div onclick="upH(1);"><i class="fs-4 bi bi-caret-up" id="arrow-upH"></i></div>
+                                    <div onclick="upH(1);"><i class="px-1 fs-4 bi bi-caret-up" id="arrow-upH"
+                                            style="cursor: pointer; color: #202020;"
+                                            onmouseover="this.style.color = '#E1B02E';"
+                                            onmouseleave="this.style.color = '#202020';"></i></div>
                                     <p class="fs-5 px-1 border my-0" id="hour-text">07</p>
-                                    <div onclick="downH(1);"><i class="fs-4 bi bi-caret-down-fill" id="arrow-downH"></i>
+                                    <div onclick="downH(1);"><i class="px-1 fs-4 bi bi-caret-down-fill" id="arrow-downH"
+                                            style="cursor: pointer; color: #202020;"
+                                            onmouseover="this.style.color = '#E1B02E';"
+                                            onmouseleave="this.style.color = '#202020';"></i>
                                     </div>
                                 </div>
                                 <div class="d-flex align-content-middle my-auto">
                                     <p class="fs-5 border px-2 my-0">:</p>
                                 </div>
                                 <div class="d-flex flex-column mx-1">
-                                    <div onclick="upM(1);"><i class="fs-4 bi bi-caret-up" id="arrow-upM"></i></div>
+                                    <div onclick="upM(1);"><i class="px-1 fs-4 bi bi-caret-up" id="arrow-upM"
+                                            style="cursor: pointer; color: #202020;"
+                                            onmouseover="this.style.color = '#E1B02E';"
+                                            onmouseleave="this.style.color = '#202020';"></i></div>
                                     <p class="fs-5 px-1 border my-0" id="mins-text">00</p>
-                                    <div onclick="downM(1);"><i class="fs-4 bi bi-caret-down-fill" id="arrow-downM"></i>
+                                    <div onclick="downM(1);"><i class="px-1 fs-4 bi bi-caret-down-fill" id="arrow-downM"
+                                            style="cursor: pointer; color: #202020;"
+                                            onmouseover="this.style.color = '#E1B02E';"
+                                            onmouseleave="this.style.color = '#202020';"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-1 d-flex flex-column justify-content-center">
-                            <p class="fs-4 mb-0">To:</p>
+                        <div class="mt-1 d-flex flex-column flex-lg-row justify-content-center">
+                            <p class="fs-4 mb-0 col-2">To:</p>
                             <!--par == 2, a.k.a. To:-->
                             <div class="d-flex w-100 justify-content-center">
                                 <div class="d-flex flex-column justify-content-center mx-1">
-                                    <div onclick="upH(2);"><i class="fs-5 bi bi-caret-up" id="arrow-upH2"></i></div>
+                                    <div onclick="upH(2);"><i class="px-1 fs-4 bi bi-caret-up" id="arrow-upH2"
+                                            style="cursor: pointer; color: #202020;"
+                                            onmouseover="this.style.color = '#E1B02E';"
+                                            onmouseleave="this.style.color = '#202020';"></i>
+                                    </div>
                                     <p class="fs-5 px-1 border my-0" id="hour-text2">07</p>
-                                    <div onclick="downH(2);"><i class="fs-5 bi bi-caret-down-fill"
-                                            id="arrow-downH2"></i></div>
+                                    <div onclick="downH(2);"><i class="px-1 fs-4 bi bi-caret-down-fill"
+                                            id="arrow-downH2" style="cursor: pointer; color: #202020;"
+                                            onmouseover="this.style.color = '#E1B02E';"
+                                            onmouseleave="this.style.color = '#202020';"></i></div>
                                 </div>
                                 <div class="d-flex align-content-middle my-auto">
                                     <p class="fs-5 border px-2 my-0">:</p>
                                 </div>
                                 <div class="d-flex flex-column mx-1">
-                                    <div onclick="upM(2);"><i class="fs-5 bi bi-caret-up" id="arrow-upM2"></i></div>
+                                    <div onclick="upM(2);"><i class="px-1 fs-4 bi bi-caret-up" id="arrow-upM2"
+                                            style="cursor: pointer; color: #202020;"
+                                            onmouseover="this.style.color = '#E1B02E';"
+                                            onmouseleave="this.style.color = '#202020';"></i>
+                                    </div>
                                     <p class="fs-5 px-1 border my-0" id="mins-text2">00</p>
-                                    <div onclick="downM(2);"><i class="fs-5 bi bi-caret-down-fill"
-                                            id="arrow-downM2"></i></div>
+                                    <div onclick="downM(2);"><i class="px-1 fs-4 bi bi-caret-down-fill"
+                                            id="arrow-downM2" style="cursor: pointer; color: #202020;"
+                                            onmouseover="this.style.color = '#E1B02E';"
+                                            onmouseleave="this.style.color = '#202020';"></i></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer" style="background-color: #D6A51F;">
-                    <button type="button" class="btn btn-primary" onclick="applyingFilters();">Apply filters</button>
+                <div class="modal-footer" style="background-color: #202020;">
+                    <button type="button" class="btn" onclick="applyingFilters();"
+                        style="background-color: #E6BD4C; border-color: #000000; color: #000000;">Apply filters</button>
                 </div>
             </div>
         </div>
@@ -134,6 +162,7 @@
 
         /*Get Date*/
         function setDate() {
+            document.getElementById('filter-btn').click();
             const date = new Date();
             let day = date.getDate();
             let month = date.getMonth() + 1;
@@ -210,7 +239,7 @@
                 if (hour != 7) {
                     hour--;
                     hour_text.innerText = (String(hour).padStart(2, '0'));
-                    if (arrow_downH.classList == "fs-5 bi bi-caret-down") {
+                    if (arrow_downH.classList == "px-1 fs-4 bi bi-caret-down") {
                         arrow_downH.classList.add('bi-caret-down-fill');
                         arrow_downH.classList.remove('bi-caret-down');
                     }
@@ -225,14 +254,13 @@
                 if (hour2 != 7) {
                     hour2--;
                     hour_text2.innerText = (String(hour2).padStart(2, '0'));
-                    if (arrow_downH2.classList == "fs-5 bi bi-caret-down") {
+                    if (arrow_downH2.classList == "px-1 fs-4 bi bi-caret-down") {
                         arrow_downH2.classList.add('bi-caret-down-fill');
                         arrow_downH2.classList.remove('bi-caret-down');
                     }
                     if (hour2 == 7) {
                         arrow_upH2.classList.add('bi-caret-up');
                         arrow_upH2.classList.remove('bi-caret-up-fill');
-
                     }
                 }
             }
@@ -243,7 +271,7 @@
                 if (hour != 20) {
                     hour++;
                     hour_text.innerText = (String(hour).padStart(2, '0'));
-                    if (arrow_upH.classList == "fs-4 bi bi-caret-up") {
+                    if (arrow_upH.classList == "px-1 fs-4 bi bi-caret-up") {
                         arrow_upH.classList.add('bi-caret-up-fill');
                         arrow_upH.classList.remove('bi-caret-up');
                     }
@@ -258,7 +286,7 @@
                 if (hour2 != 20) {
                     hour2++;
                     hour_text2.innerText = (String(hour2).padStart(2, '0'));
-                    if (arrow_upH2.classList == "fs-4 bi bi-caret-up") {
+                    if (arrow_upH2.classList == "px-1 fs-4 bi bi-caret-up") {
                         arrow_upH2.classList.add('bi-caret-up-fill');
                         arrow_upH2.classList.remove('bi-caret-up');
                     }
@@ -276,7 +304,7 @@
                 if (min != 0) {
                     min -= 15;
                     mins_text.innerText = (String(min).padStart(2, '0'));
-                    if (arrow_downM.classList == "fs-4 bi bi-caret-down") {
+                    if (arrow_downM.classList == "px-1 fs-4 bi bi-caret-down") {
                         arrow_downM.classList.add('bi-caret-down-fill');
                         arrow_downM.classList.remove('bi-caret-down');
                     }
@@ -290,7 +318,7 @@
                 if (min2 != 0) {
                     min2 -= 15;
                     mins_text2.innerText = (String(min2).padStart(2, '0'));
-                    if (arrow_downM2.classList == "fs-4 bi bi-caret-down") {
+                    if (arrow_downM2.classList == "px-1 fs-4 bi bi-caret-down") {
                         arrow_downM2.classList.add('bi-caret-down-fill');
                         arrow_downM2.classList.remove('bi-caret-down');
                     }
@@ -307,7 +335,7 @@
                 if (min != 45) {
                     min += 15;
                     mins_text.innerText = (String(min).padStart(2, '0'));
-                    if (arrow_upM.classList == "fs-4 bi bi-caret-up") {
+                    if (arrow_upM.classList == "px-1 fs-4 bi bi-caret-up") {
                         arrow_upM.classList.add('bi-caret-up-fill');
                         arrow_upM.classList.remove('bi-caret-up');
                     }
@@ -322,7 +350,7 @@
                 if (min2 != 45) {
                     min2 += 15;
                     mins_text2.innerText = (String(min2).padStart(2, '0'));
-                    if (arrow_upM2.classList == "fs-4 bi bi-caret-up") {
+                    if (arrow_upM2.classList == "px-1 fs-4 bi bi-caret-up") {
                         arrow_upM2.classList.add('bi-caret-up-fill');
                         arrow_upM2.classList.remove('bi-caret-up');
                     }
@@ -344,7 +372,12 @@
             let fromTime = hour * 60 + min;
             let toTime = hour2 * 60 + min2;
             if (((toTime - fromTime) < 15)) {
-                alert("Less than 15-minute stay.");
+                if ((toTime - fromTime) >= 0) {
+                    alert("Less than 15-minute stay.");
+                }
+                else {
+                    alert("Invalid time interval.");
+                }
                 return "ERROR";
             }
             else if ((toTime - fromTime) > 8 * 60) {
@@ -354,6 +387,33 @@
 
             result += ", from:" + (String(hour).padStart(2, '0')) + ":" + (String(min).padStart(2, '0')) + " to:" + (String(hour2).padStart(2, '0')) + ":" + (String(min2).padStart(2, '0'));
             alert(result);
+            document.getElementById('close-filter').click();
+        }
+
+        //RESTARTING FILTERS
+        function restartFilter() {
+            hour = 7;
+            hour2 = 7;
+            min = 0;
+            min2 = 0;
+
+            hour_text.innerText = (String(hour).padStart(2, '0'));
+            arrow_upH.classList.add('bi-caret-up');
+            arrow_upH.classList.remove('bi-caret-up-fill');
+
+            hour_text2.innerText = (String(hour2).padStart(2, '0'));
+            arrow_upH2.classList.add('bi-caret-up');
+            arrow_upH2.classList.remove('bi-caret-up-fill');
+
+            mins_text.innerText = (String(min).padStart(2, '0'));
+            arrow_upM.classList.add('bi-caret-up');
+            arrow_upM.classList.remove('bi-caret-up-fill');
+
+            mins_text2.innerText = (String(min2).padStart(2, '0'));
+            arrow_upM2.classList.add('bi-caret-up');
+            arrow_upM2.classList.remove('bi-caret-up-fill');
+
+            setToday();
         }
     </script>
 </body>
