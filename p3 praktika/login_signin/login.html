@@ -50,14 +50,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-         
+
         }
 
         form {
             width: 100%;
             max-width: 400px;
             padding: 0rem 2rem;
-            
+
         }
 
         .title {
@@ -135,19 +135,37 @@
                         <h2 class="title">Log In</h2>
                         <div class="input-field">
                             <i class="fas fa-user"></i>
-                            <input type="text" placeholder="Username" />
+                            <input type="text" id="username" placeholder="Username" />
                         </div>
                         <div class="input-field">
                             <i class="fas fa-lock"></i>
-                            <input type="password" placeholder="Password" />
+                            <input type="password" id="password" placeholder="Password" />
                         </div>
-                        <input type="submit" value="Log in" class="btn solid" />
+                        <input type="submit" onsubmit="login()" value="Log in" class="btn solid" />
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        function login() {
+            let url = 'http://';
+            let username = document.getElementById('username');
+            let password = document.getElementById('password');
 
+            let headers = new Headers();
+
+            headers.set('Authorization', 'Basic ' + btoa(username + ":" + password));
+            headers.append('Authorization', 'Basic' + btoa(username + ":" + password));
+
+            fetch(`${url}/User/Login`, {
+                method: 'GET',
+                headers: headers
+            })
+                .then(response => response.json())
+                .then(json => console.log(json));
+        }
+    </script>
     <script src="../js_animation_canvas/particle.js"></script>
 </body>
 
