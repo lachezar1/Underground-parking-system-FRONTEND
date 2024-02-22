@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!--IZPOLZVA jQuery, NO ZA DA NE SE TEGLI, SE IZPOLZVA TOZI LINK-->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+        body {
+            font-family: "Poppins", sans-serif;
+            text-align: center;
+            background: #d1c1c1;
+        }
+
+        .widget {
+            text-align: left;
+            overflow: hidden;
+            margin: 64px;
+            background: #e6bd4c;
+            border-radius: 9px;
+            height: 260px;
+            width: 330px;
+            display: inline-block;
+            position: relative;
+            box-shadow: 0px 2px 16px #e6bd4c, 0px 2px 3px #ededeb inset;
+            border: 1px solid #ededeb;
+        }
+
+        .widget canvas,
+        .widget .labels {
+            position: absolute;
+            text-align: center;
+            width: 330px;
+            height: 260px;
+        }
+
+        .widget .labels {
+            color: white;
+            margin-top: 48px;
+            text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+            font-weight: 100;
+        }
+
+        .widget .labels h2 {
+            font-weight: 100;
+            font-size: 50px;
+            margin-bottom: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="widget">
+        <canvas></canvas>
+        <div class="labels">
+            <h2>78%</h2>
+            Capacity
+        </div>
+    </div>
+
+    <script>
+        window.requestAnimFrame = (function () {
+            return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                function (callback) {
+                    window.setTimeout(callback, 1000 / 60);
+                };
+        })();
+
+        var canvas = $('canvas')[0];
+        var cxt = canvas.getContext('2d');
+        var width = $('canvas').width();
+        var height = $('canvas').height();
+        canvas.width = width;
+        canvas.height = height;
+        var center = { x: width / 2, y: height / 2 };
+        var value = .78;
+        var initialValue = 0;
+
+        var rotation = Math.random() * Math.PI * 2;
+
+        var draw = function () {
+            rotation += .001;
+
+            if (rotation >= Math.PI * 2)
+                rotation -= Math.PI * 2;
+
+            if (Math.abs(initialValue - value) < .001)
+                initialValue = value;
+
+            if (initialValue != value) {
+                initialValue += (value - initialValue) / 50;
+                $('.widget h2').html(Math.round(initialValue * 100) + '%');
+            }
+
+            cxt.clearRect(0, 0, width, height);
+            cxt.save();
+
+            cxt.translate(center.x, center.y);
+            cxt.rotate(rotation)
+
+            cxt.lineWidth = 35;
+            cxt.beginPath();
+            cxt.arc(0, 0, 100, 0, Math.PI * 2, false);
+            var grad = cxt.createLinearGradient(0, 0, 0, height);
+            grad.addColorStop(0, "#202020");
+            grad.addColorStop(1, "#202020");
+            cxt.strokeStyle = grad;
+            cxt.shadowBlur = 10;
+            cxt.shadowColor = "rgba(0,0,0,.5)";
+            cxt.shadowOffsetX = 0;
+            cxt.shadowOffsetY = 4;
+            cxt.stroke();
+
+            cxt.beginPath();
+            cxt.arc(0, 0, 120, rotation, Math.PI * 2 * initialValue + rotation, false);
+            grad = cxt.createLinearGradient(0, 0, 0, height);
+            grad.addColorStop(0, "#6D6C58");
+            grad.addColorStop(1, "#ADADA2");
+            cxt.strokeStyle = grad;
+            cxt.shadowBlur = 10;
+            cxt.shadowColor = "rgba(0,0,0,.5)";
+            cxt.shadowOffsetX = 0;
+            cxt.shadowOffsetY = 4;
+            cxt.stroke();
+
+            cxt.restore();
+            requestAnimFrame(draw);
+        }
+        draw();
+    </script>
+</body>
+
+</html>
