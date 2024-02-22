@@ -169,7 +169,8 @@
                                             style="cursor: pointer; color: #202020;"
                                             onmouseover="this.style.color = '#E1B02E';"
                                             onmouseleave="this.style.color = '#202020';"></i></div>
-                                    <p class="fs-5 px-1 border my-0" id="hour-text">07</p>
+                                    <p class="fs-5 px-1 border my-0" id="hour-text" contenteditable
+                                        onkeyup="checkHourFormat(this.innerText, this, 0);">07</p>
                                     <div onclick="downH(1);"><i class="px-1 fs-4 bi bi-caret-down-fill" id="arrow-downH"
                                             style="cursor: pointer; color: #202020;"
                                             onmouseover="this.style.color = '#E1B02E';"
@@ -184,7 +185,9 @@
                                             style="cursor: pointer; color: #202020;"
                                             onmouseover="this.style.color = '#E1B02E';"
                                             onmouseleave="this.style.color = '#202020';"></i></div>
-                                    <p class="fs-5 px-1 border my-0" id="mins-text">00</p>
+                                    <p class="fs-5 px-1 border my-0" id="mins-text" contenteditable
+                                        onkeyup="checkMinFormat(this.innerText, this, 0, document.getElementById('mins-text2'));">
+                                        00</p>
                                     <div onclick="downM(1);"><i class="px-1 fs-4 bi bi-caret-down-fill" id="arrow-downM"
                                             style="cursor: pointer; color: #202020;"
                                             onmouseover="this.style.color = '#E1B02E';"
@@ -203,7 +206,8 @@
                                             onmouseover="this.style.color = '#E1B02E';"
                                             onmouseleave="this.style.color = '#202020';"></i>
                                     </div>
-                                    <p class="fs-5 px-1 border my-0" id="hour-text2">07</p>
+                                    <p class="fs-5 px-1 border my-0" id="hour-text2" contenteditable
+                                        onkeyup="checkHourFormat(this.innerText, this, 1);">07</p>
                                     <div onclick="downH(2);"><i class="px-1 fs-4 bi bi-caret-down-fill"
                                             id="arrow-downH2" style="cursor: pointer; color: #202020;"
                                             onmouseover="this.style.color = '#E1B02E';"
@@ -218,7 +222,9 @@
                                             onmouseover="this.style.color = '#E1B02E';"
                                             onmouseleave="this.style.color = '#202020';"></i>
                                     </div>
-                                    <p class="fs-5 px-1 border my-0" id="mins-text2">00</p>
+                                    <p class="fs-5 px-1 border my-0" id="mins-text2" contenteditable
+                                        onkeyup="checkMinFormat(this.innerText, this, 1, document.getElementById('mins-text'));">
+                                        00</p>
                                     <div onclick="downM(2);"><i class="px-1 fs-4 bi bi-caret-down-fill"
                                             id="arrow-downM2" style="cursor: pointer; color: #202020;"
                                             onmouseover="this.style.color = '#E1B02E';"
@@ -327,6 +333,109 @@
         var hour2 = 7;
         var min2 = 0;
 
+        function checkHourFormat(input, element, index) {
+            if ((input < 7 || input > 20)) {
+                element.classList.add('bg-danger', 'text-light');
+            }
+            else {
+                element.classList.remove('bg-danger', 'text-light');
+                if (index == 0) {
+                    hour = input;
+                    if (hour == 7) {
+                        arrow_upH.classList.add('bi-caret-up');
+                        arrow_upH.classList.remove('bi-caret-up-fill');
+                    }
+                    else {
+                        arrow_downH.classList.add('bi-caret-down-fill');
+                        arrow_downH.classList.remove('bi-caret-down');
+                    }
+
+                    if (hour == 20) {
+                        arrow_downH.classList.add('bi-caret-down');
+                        arrow_downH.classList.remove('bi-caret-down-fill');
+
+                    }
+                    else {
+                        arrow_upH.classList.add('bi-caret-up-fill');
+                        arrow_upH.classList.remove('bi-caret-up');
+                    }
+                }
+                else if (index == 1) {
+                    hour2 = input;
+                    if (arrow_downH2.classList == "px-1 fs-4 bi bi-caret-down") {
+                        arrow_downH2.classList.add('bi-caret-down-fill');
+                        arrow_downH2.classList.remove('bi-caret-down');
+                    }
+                    if (hour2 == 7) {
+                        arrow_upH2.classList.add('bi-caret-up');
+                        arrow_upH2.classList.remove('bi-caret-up-fill');
+                    }
+                    if (arrow_upH2.classList == "px-1 fs-4 bi bi-caret-up") {
+                        arrow_upH2.classList.add('bi-caret-up-fill');
+                        arrow_upH2.classList.remove('bi-caret-up');
+                    }
+                    if (hour2 == 20) {
+                        arrow_downH2.classList.add('bi-caret-down');
+                        arrow_downH2.classList.remove('bi-caret-down-fill');
+
+                    }
+
+                }
+            }
+        }
+
+        function checkMinFormat(input, element, index, element2) {
+            if (index == 0) {
+                min = input;
+                if (min == 0) {
+                    arrow_upM.classList.add('bi-caret-up');
+                    arrow_upM.classList.remove('bi-caret-up-fill');
+                }
+                else {
+                    arrow_downM.classList.add('bi-caret-down-fill');
+                    arrow_downM.classList.remove('bi-caret-down');
+                }
+
+                if (min == 45) {
+                    arrow_downM.classList.add('bi-caret-down');
+                    arrow_downM.classList.remove('bi-caret-down-fill');
+                }
+                else {
+                    arrow_upM.classList.add('bi-caret-up-fill');
+                    arrow_upM.classList.remove('bi-caret-up');
+                }
+            }
+            else if (index == 1) {
+                min2 = input;
+                if (min2 == 0) {
+                    arrow_upM2.classList.add('bi-caret-up');
+                    arrow_upM2.classList.remove('bi-caret-up-fill');
+                }
+                else {
+                    arrow_downM2.classList.add('bi-caret-down-fill');
+                    arrow_downM2.classList.remove('bi-caret-down');
+                }
+
+                if (min2 == 45) {
+                    arrow_downM2.classList.add('bi-caret-down');
+                    arrow_downM2.classList.remove('bi-caret-down-fill');
+
+                }
+                else {
+                    arrow_upM2.classList.add('bi-caret-up-fill');
+                    arrow_upM2.classList.remove('bi-caret-up');
+                }
+            }
+
+            if (Math.abs(min2 - min) % 5 != 0) { //SET-NAH GO PREZ 5 MINUTOV INTEVAL ZA VYVEJDANE OT KLAVIATURA
+                element.classList.add('bg-danger', 'text-light');
+            }
+            else {
+                element.classList.remove('bg-danger', 'text-light');
+                element2.classList.remove('bg-danger', 'text-light');
+            }
+        }
+
         function upH(par) {
             if (par == 1) {
                 if (hour != 7) {
@@ -339,7 +448,6 @@
                     if (hour == 7) {
                         arrow_upH.classList.add('bi-caret-up');
                         arrow_upH.classList.remove('bi-caret-up-fill');
-
                     }
                 }
             }
@@ -459,14 +567,28 @@
         //APPLYING FILTERS
         function applyingFilters() {
             let result;
-            if (todaybool == true) { result = todayDate; }
+
+            let fromTime = Number(hour) * 60 + Number(min);
+            let toTime = Number(hour2) * 60 + Number(min2);
+
+            const now = new Date();
+            const nowTime = now.getHours() * 60 + now.getMinutes();
+
+            if (todaybool == true) {
+                result = todayDate;
+                if (toTime < nowTime) {
+                    alert("The end time has already passed. (it ends it)");
+                    return "ERROR";
+                }
+                else if (fromTime > nowTime) { //THIS SHOULD BE TESTED ON FRIDAY
+                    alert("The start time has already passed. (but it proceeds/accepts it)");
+                }
+            }
             else { result = tomorrowDate; }
 
-            let fromTime = hour * 60 + min;
-            let toTime = hour2 * 60 + min2;
-            if (((toTime - fromTime) < 15)) {
+            if (((toTime - fromTime) < 5)) {
                 if ((toTime - fromTime) >= 0) {
-                    alert("Less than 15-minute stay.");
+                    alert("Less than 5-minute stay.");
                 }
                 else {
                     alert("Invalid time interval.");
