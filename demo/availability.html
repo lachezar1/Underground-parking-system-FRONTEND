@@ -4,66 +4,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Availability</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" hrefФ="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap">
 
     <!--IZPOLZVA jQuery, NO ZA DA NE SE TEGLI, SE IZPOLZVA TOZI LINK-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <style>
-        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
-
-        body {
-            font-family: "Poppins", sans-serif;
-            text-align: center;
-            background: #d1c1c1;
-        }
-
-        .widget {
-            text-align: left;
-            overflow: hidden;
-            margin: 64px;
-            background: #e6bd4c;
-            border-radius: 9px;
-            height: 260px;
-            width: 330px;
-            display: inline-block;
-            position: relative;
-            box-shadow: 0px 2px 16px #e6bd4c, 0px 2px 3px #ededeb inset;
-            border: 1px solid #ededeb;
-        }
-
-        .widget canvas,
-        .widget .labels {
-            position: absolute;
-            text-align: center;
-            width: 330px;
-            height: 260px;
-        }
-
-        .widget .labels {
-            color: white;
-            margin-top: 48px;
-            text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-            font-weight: 100;
-        }
-
-        .widget .labels h2 {
-            font-weight: 100;
-            font-size: 50px;
-            margin-bottom: 0px;
-        }
-    </style>
 </head>
 
-<body>
-    <div class="widget">
-        <canvas></canvas>
-        <div class="labels">
-            <h2>78%</h2>
-            Capacity
+<body onload="loadAvailability();" class="text-center" style="font-family: 'Poppins', sans-serif; background: #d1c1c1;">
+    <div class="overflow-hidden rounded-2 d-flex justify-content-center position-relative m-auto"
+        style="background-color: #e6bd4c; height: 260px; width: 330px; box-shadow: 0px 2px 16px #e6bd4c, 0px 2px 3px #ededeb inset; border: 1px solid #ededeb;">
+        <canvas class="position-absolute" style="height: 260px; width: 330px;"></canvas>
+        <div class="position-absolute d-flex justify-content-center"
+            style="height: 260px; width: 330px; text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); color: white;">
+            <div class="d-flex flex-column my-auto">
+                <h2 class="fs-2" id="avail-text">78%</h2>
+                <p class="fs-5">Capacity</p>
+            </div>
         </div>
     </div>
 
     <script>
+        //CALCULATING
+        const allParkingSpots = 18; //doesn't need to be gotten from the DB
+        var avail_text = document.getElementById('avail-text');
+
+        function loadAvailability() {
+            let bookedSpots = ["A1", "A2", "A5", "A10", "B4", "B5", "B7", "B8"]; //this we get from DB
+            let availSpots = Number(allParkingSpots - bookedSpots.length); //this we calculate
+            availSpots /= allParkingSpots;
+            availSpots *= 100;
+            avail_text.innerText = (String(availSpots.toFixed(0)).padStart(2, '0')) + "%";
+            return (availSpots / 100).toFixed(2);
+        }
+
+        //CANVA
         window.requestAnimFrame = (function () {
             return window.requestAnimationFrame ||
                 window.webkitRequestAnimationFrame ||
@@ -80,7 +59,7 @@
         canvas.width = width;
         canvas.height = height;
         var center = { x: width / 2, y: height / 2 };
-        var value = .78;
+        var value = loadAvailability();
         var initialValue = 0;
 
         var rotation = Math.random() * Math.PI * 2;
