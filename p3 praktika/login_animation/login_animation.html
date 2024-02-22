@@ -17,8 +17,12 @@
     <!-- CONTAINER -->
     <div class="container position-absolute top-50 start-50 translate-middle" id="container">
 
-        <div class="form-container sign-up-container">
+        <div class="form-container sign-up-container" id="signUpForm">
             <form action="#">
+                <div class="position-absolute fixed-top" style="background-color: #E1B02E;">
+                    <button class="overlay-btn m-4" id="respSignUpBtn">Sign Up</button>
+                    <button class="overlay-btn m-4" id="respLogInBtn">Log in</button>
+                </div>
                 <h1 class="fw-bold">Create</h1>
                 <h1 class="fw-bold mb-4">Account</h1>
 
@@ -43,6 +47,7 @@
         </div>
         <div class="form-container log-in-container">
             <form action="#">
+                
                 <h1 class="fw-bold mb-5">Log In</h1>
                 <div class="input-field">
                     <i class="fas fa-user"></i>

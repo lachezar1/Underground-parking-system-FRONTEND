@@ -219,8 +219,81 @@ form {
     cursor: pointer;
     transition: 0.5s;
 }
+
 .overlay-btn:hover {
     border: 1px solid #202020;
     background-color: #E1B02E;
     color: #202020;
+}
+.respBtnSignUp{
+    display: none !important;
+}
+.respLogInBtn{
+    display: none !important;
+}
+
+@media only screen and (max-width: 1000px) {
+    .container {
+        width: 80vw;
+
+    }.respBtnSignUp{
+        display: none !important;
+    }
+    .respLogInBtn{
+        display: none !important;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .container {
+        width: 100vw;
+    }.respBtnSignUp{
+        display: none !important;
+    }
+    .respLogInBtn{
+        display: none !important;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .container {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .log-in-container{
+        width: 100vw;
+        z-index: 1;
+    }
+
+    .sign-up-container{
+        width: 100vw;
+        z-index: 20;
+    }
+    .overlay-container{
+        display: none;
+    }
+    .container .log-in-container {
+        opacity: 1;
+        z-index: 4;
+        /* display: none; */
+    }
+    .container .sign-up-container {
+        transform: translateY(90%);
+        opacity: 1;
+        z-index: 5;
+    }
+
+    
+    .respBtnSignUp{
+        display: block;
+    }
+    .respLogInBtn{
+        display: none;
+    }
+
+    .signUpOpen{
+        transform: translateY(0px) !important;
+    }
+
 }
