@@ -8,7 +8,7 @@
 
 body {
     background-color: #111642;
-
+    font-family: "Poppins", sans-serif;
 }
 
 html,
@@ -104,7 +104,10 @@ form {
 table {
     border-collapse: collapse;
     width: 100%;
+    
 }
+
+
 
 th,
 td {
@@ -114,7 +117,7 @@ td {
 }
 
 th {
-    background-color: #ada2a2;
+    background-color: #E1B02E;
 }
 
 /* Стилове за бутоните */
@@ -160,7 +163,16 @@ th {
 
 .bookButton {
     /* background-color: rgb(255, 0, 0); */
-    color: #6c5d5d;
+    color: #000000;
+    background-color: #bcae59;
+    padding: 1vw;
+    font-size: larger;
+    font-weight: 700;
+    border-radius: 5px;
+}
+
+.bookButton:hover{
+    background-color: #92873f;
 }
 
 
@@ -185,10 +197,11 @@ div {
 }
 
 .hiddenDiv {
-    background-color: red;
+    background-color: rgb(222, 219, 175);
     padding: 30px;
-    width: 50%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
+    border-radius: 2vw;
+    border: 2px solid #000000;
 }
