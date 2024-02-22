@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <!--HEADER-->
+    <header class="col-12 position-relative w-100 top-0 m-0 start-0 d-flex justify-content-between overflow-hidden"
+        id="top-navigation" style="background-color: #202020;">
+        <!--LQVA CHAST HEADER-->
+        <div class="d-flex align-content-middle my-auto ms-3" style="cursor: pointer;">
+            <p class="h-100 fs-1 p-0 my-auto" style="color: #E1B02E;"><i
+                    class="bi bi-car-front-fill fs-1 mx-2"></i>CarTrek
+            </p>
+        </div>
+
+        <!--DQSNA CHAST HEADER-->
+        <div class="pe-md-2 m-3 d-md-flex d-none align-items-center">
+            <button class="btn mx-2 btn-lg fw-medium" type="button" id="filter-btn"
+                style="border: 2px solid #E1B02E; color: #E1B02E;"
+                onmouseover="this.style.backgroundColor = '#E1B02E'; this.style.color = '#202020'; this.style.border = '2px solid #E1B02E';"
+                onmouseleave="this.style.backgroundColor = ''; this.style.color = '#E1B02E'; this.style.border = '2px solid #E1B02E';"
+                data-bs-toggle="modal" data-bs-target="#date-filter" onclick="restartFilter();">Parking Spaces
+                <i class="bi bi-car-front-fill ps-1"></i>
+            </button>
+
+            <button class="btn mx-2 btn-lg bi bi-person-circle" style="border: 2px solid #E1B02E; color: #E1B02E;"
+                data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+                aria-controls="offcanvasWithBothOptions"
+                onmouseover="this.style.backgroundColor = '#E1B02E'; this.style.color = '#202020'; this.style.border = '2px solid #E1B02E';"
+                onmouseleave="this.style.backgroundColor = ''; this.style.color = '#E1B02E'; this.style.border = '2px solid #E1B02E';">
+            </button>
+        </div>
+
+        <div class="pe-md-5 m-3 d-flex d-md-none align-items-center">
+            <button class="btn mx-2 btn-lg bi bi-list-ul" style="border: 2px solid #E1B02E; color: #E1B02E;"
+                onmouseover="this.style.backgroundColor = '#E1B02E'; this.style.color = '#202020'; this.style.border = '2px solid #E1B02E';"
+                onmouseleave="this.style.backgroundColor = ''; this.style.color = '#E1B02E'; this.style.border = '2px solid #E1B02E';"
+                type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                aria-controls="offcanvasRight"></button>
+
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel"
+                style="background-color: #202020;">
+                <div class="offcanvas-header">
+                    <h3 class="offcanvas-title" id="offcanvasRightLabel">
+                        <p class="h-100 fs-1 p-0 my-auto" style="color: #E1B02E;"><i
+                                class="bi bi-car-front-fill fs-1 mx-2"></i>CarTrek
+                        </p>
+                    </h3>
+                    <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
+                        <i class="bi bi-x fs-1" style="color: #E1B02E;"></i>
+                    </button>
+                </div>
+                <div class="offcanvas-body d-flex flex-column">
+                    <button class="btn m-2 btn-lg fw-medium" type="button" id="filter-btn-side"
+                        style="border: 2px solid #E1B02E; color: #E1B02E;"
+                        onmouseover="this.style.backgroundColor = '#E1B02E'; this.style.color = '#202020'; this.style.border = '2px solid #E1B02E';"
+                        onmouseleave="this.style.backgroundColor = ''; this.style.color = '#E1B02E'; this.style.border = '2px solid #E1B02E';"
+                        data-bs-toggle="modal" data-bs-target="#date-filter" onclick="restartFilter();">Parking Spaces
+                        <i class="bi bi-car-front-fill ps-1"></i>
+                    </button>
+
+                    <button class="btn m-2 btn-lg bi bi-person-circle"
+                        style="border: 2px solid #E1B02E; color: #E1B02E;" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"
+                        onmouseover="this.style.backgroundColor = '#E1B02E'; this.style.color = '#202020'; this.style.border = '2px solid #E1B02E';"
+                        onmouseleave="this.style.backgroundColor = ''; this.style.color = '#E1B02E'; this.style.border = '2px solid #E1B02E';">
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!--ACCOUNTS-->
+        <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
+            aria-labelledby="offcanvasWithBothOptionsLabel" style="background-color: #202020;">
+            <div class="offcanvas-header w-100 d-flex" style="height: 100px; border-bottom: 2px solid #E1B02E;">
+                <!--DALI E DOSTATYCHNO INTUITIVNO BEZ X BUTON-->
+
+                <div class="d-flex align-middle justify-content-between">
+                    <div class="d-block">
+                        <p class="my-1" style="color: #E1B02E;">Име Фамилия</p>
+                        <p class="my-1" style="color: #E1B02E;">e-mail</p>
+                    </div>
+                </div>
+                <button type="button" class="btn d-block d-md-none" data-bs-dismiss="offcanvas" aria-label="Close">
+                    <i class="bi bi-x fs-1" style="color: #E1B02E;"></i>
+                </button>
+            </div>
+            <div class="offcanvas-body d-flex flex-column">
+                <button class="btn m-2 btn-lg" style="border: 2px solid #E1B02E; color: #E1B02E;"
+                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+                    aria-controls="offcanvasWithBothOptions"
+                    onmouseover="this.style.backgroundColor = '#E1B02E'; this.style.color = '#202020'; this.style.border = '2px solid #E1B02E';"
+                    onmouseleave="this.style.backgroundColor = ''; this.style.color = '#E1B02E'; this.style.border = '2px solid #E1B02E';">
+                    History
+                </button>
+                <button class="btn m-2 btn-lg" style="border: 2px solid #E1B02E; color: #E1B02E;"
+                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+                    aria-controls="offcanvasWithBothOptions"
+                    onmouseover="this.style.backgroundColor = '#E1B02E'; this.style.color = '#202020'; this.style.border = '2px solid #E1B02E';"
+                    onmouseleave="this.style.backgroundColor = ''; this.style.color = '#E1B02E'; this.style.border = '2px solid #E1B02E';">
+                    Log out <i class="bi bi-person-circle ps-1"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <header class="col-12 position-relative w-100 top-0 m-0 start-0 py-1 d-flex justify-content-center overflow-hidden"
+        id="history" style="background-color: #E1B02E;">
+        <h1 class="text-center" style="color: #202020;">History</h1>
+    </header>
+
+    <!--ACTIVE-->
+    <div class="accordion accordion-flush" id="accordionFlushExample" style="border-top: 1px solid #202020;">
+        <div class="accordion-item" style=" border-bottom: 1px solid #202020;">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne"
+                    style="color: #202020; background-color: #E1B02E;">
+                    Active bookings
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse show mb-0" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="col-1">#</th>
+                                <th class="col-4">From</th>
+                                <th class="col-4">To</th>
+                                <th class="col-3">Place</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>07:00, 22/02/2024</td>
+                                <td>07:15, 22/02/2024</td>
+                                <td>A1</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>07:00, 22/02/2024</td>
+                                <td>08:15, 22/02/2024</td>
+                                <td>A2</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>07:00, 22/02/2024</td>
+                                <td>15:00, 22/02/2024</td>
+                                <td>A3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item" style=" border-bottom: 1px solid #202020;">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo"
+                    style="color: #202020; background-color: #E1B02E;">
+                    Inactive bookings
+                </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="col-1">#</th>
+                                <th class="col-4">From</th>
+                                <th class="col-4">To</th>
+                                <th class="col-3">Place</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>07:00, 21/02/2024</td>
+                                <td>07:15, 21/02/2024</td>
+                                <td>A1</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>07:00, 21/02/2024</td>
+                                <td>08:15, 21/02/2024</td>
+                                <td>A2</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>07:00, 21/02/2024</td>
+                                <td>15:00, 21/02/2024</td>
+                                <td>A3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+    </script>
+</body>
+
+</html>
