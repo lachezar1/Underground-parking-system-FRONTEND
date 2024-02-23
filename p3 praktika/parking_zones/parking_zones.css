@@ -6,11 +6,6 @@
     box-sizing: border-box;
 }
 
-body {
-    background-color: #111642;
-
-}
-
 html,
 body {
     height: 100%;
@@ -25,6 +20,43 @@ body {
     z-index: 0;
 }
 
-.container {
-    width: 100vw;
+.widget {
+    text-align: left;
+    overflow: hidden;
+    margin: 15%;
+    background: #e3483c;
+    border-radius: 9px;
+    height: 300px;
+    width: 330px;
+    display: inline-block;
+    position: relative;
+    box-shadow: 0px 2px 16px rgba(0, 0, 0, 0.5), 0px 2px 3px rgba(255, 255, 255, 0.2) inset;
+    border: 1px solid rgba(0, 0, 0, 0.2);
 }
+
+.widget canvas,
+.widget .labels {
+    position: absolute;
+    text-align: center;
+    width: 330px;
+    height: 260px;
+}
+
+.widget .labels {
+    color: white;
+    margin-top: 48px;
+    text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    font-weight: 100;
+}
+
+.widget .labels h2 {
+    font-weight: 100;
+    font-size: 50px;
+    margin-bottom: 0px;
+}
+.center {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+  }
