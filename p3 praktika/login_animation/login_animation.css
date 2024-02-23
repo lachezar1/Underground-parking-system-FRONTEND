@@ -136,7 +136,10 @@ form {
 }
 
 .overlay {
-    background: #E1B02E;
+    background-color: #E1B02E;
+    background: linear-gradient(90deg, rgb(175, 104, 29) 0%, #E1B02E 40%, #E1B02E 60%,  rgb(175, 104, 29) 100%);
+    /* background: #E1B02E; */
+    /* 172, 127, 44 */
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;
@@ -207,7 +210,7 @@ form {
 
 .overlay-btn {
     width: 60%;
-    background-color: #E1B02E;
+    background-color: rgba(225, 176, 46, 0.1);
     border: 1px solid;
     outline: none;
     height: 49px;
@@ -222,7 +225,7 @@ form {
 
 .overlay-btn:hover {
     border: 1px solid #202020;
-    background-color: #E1B02E;
+    /* background-color: #E1B02E; */
     color: #202020;
 }
 .respBtnSignUp{
