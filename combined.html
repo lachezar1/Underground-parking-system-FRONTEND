@@ -96,8 +96,8 @@
                 </button>
             </div>
             <div class="offcanvas-body d-flex flex-column">
-                <button class="btn m-2 btn-lg" style="border: 2px solid #E1B02E; color: #E1B02E;"
-                    data-bs-toggle="modal" data-bs-target="#history_modal"
+                <button class="btn m-2 btn-lg" style="border: 2px solid #E1B02E; color: #E1B02E;" data-bs-toggle="modal"
+                    data-bs-target="#history_modal" onclick="loadHistoryModal();"
                     onmouseover="this.style.backgroundColor = '#E1B02E'; this.style.color = '#202020'; this.style.border = '2px solid #E1B02E';"
                     onmouseleave="this.style.backgroundColor = ''; this.style.color = '#E1B02E'; this.style.border = '2px solid #E1B02E';">
                     History
@@ -241,222 +241,73 @@
     </div>
 
     <!--History Modal-->
-
     <div class="modal fade" id="history_modal" tabindex="-1" role="dialog" aria-labelledby="history_modal_title"
         aria-hidden="true">
-        <div class="modal-dialog modal-xl mt-4">
+        <div class="modal-dialog modal-fullscreen-md-down mt-md-5 modal-xl">
             <div class="modal-content">
-                <header
-                    class="col-12 position-relative w-100 top-0 m-0 start-0 py-1 d-flex justify-content-center overflow-hidden"
-                    id="history" style="background-color: #E1B02E;">
-                    <h1 class="text-center" style="color: #202020;">History</h1>
-                </header>
-    
-                <!--ACTIVE-->
-                <div class="accordion accordion-flush" id="accordionFlushExample" style="border-top: 1px solid #202020;">
-                    <div class="accordion-item" style=" border-bottom: 1px solid #202020;">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne"
-                                style="color: #202020; background-color: #E1B02E;">
-                                Active bookings
-                            </button>
-                        </h2>
-                        <div id="flush-collapseOne" class="accordion-collapse collapse show mb-0"
-                            data-bs-parent="#accordionFlushExample" style="max-height: 50vh; overflow-y: auto;">
-                            <div class="accordion-body">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th class="col-1">#</th>
-                                            <th class="col-4">From</th>
-                                            <th class="col-4">To</th>
-                                            <th class="col-3">Place</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th> A3
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>07:00, 22/02/2024</td>
-                                            <td>08:15, 22/02/2024</td>
-                                            <td>A2</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>07:00, 22/02/2024</td>
-                                            <td>15:00, 22/02/2024</td>
-                                            <td>A3</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>07:00, 22/02/2024</td>
-                                            <td>15:00, 22/02/2024</td>
-                                            <td>A3</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>07:00, 22/02/2024</td>
-                                            <td>15:00, 22/02/2024</td>
-                                            <td>A3</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>07:00, 22/02/2024</td>
-                                            <td>15:00, 22/02/2024</td>
-                                            <td>A3</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>07:00, 22/02/2024</td>
-                                            <td>15:00, 22/02/2024</td>
-                                            <td>A3</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>07:00, 22/02/2024</td>
-                                            <td>15:00, 22/02/2024</td>
-                                            <td>A3</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>07:00, 22/02/2024</td>
-                                            <td>15:00, 22/02/2024</td>
-                                            <td>A3</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>07:00, 22/02/2024</td>
-                                            <td>15:00, 22/02/2024</td>
-                                            <td>A3</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>07:00, 22/02/2024</td>
-                                            <td>15:00, 22/02/2024</td>
-                                            <td>A3</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>07:00, 22/02/2024</td>
-                                            <td>15:00, 22/02/2024</td>
-                                            <td>A3</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>07:00, 22/02/2024</td>
-                                            <td>15:00, 22/02/2024</td>
-                                            <td>A3</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>07:00, 22/02/2024</td>
-                                            <td>15:00, 22/02/2024</td>
-                                            <td>A3</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>07:00, 22/02/2024</td>
-                                            <td>15:00, 22/02/2024</td>
-                                            <td>A3</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>07:00, 22/02/2024</td>
-                                            <td>15:00, 22/02/2024</td>
-                                            <td>A3</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                <div class="modal-header" style="background-color: #E1B02E;">
+                    <h1 class="modal-title fs-5 text-center" id="exampleModalLabel" style="color: #202020;">History</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body h-100 p-0">
+                    <div class="accordion accordion-flush" id="accordionFlushExample"
+                        style="border-top: 1px solid #202020;">
+                        <!--Active Bookings-->
+                        <div class="accordion-item" style=" border-bottom: 1px solid #202020;">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseOne" aria-expanded="true"
+                                    aria-controls="flush-collapseOne"
+                                    style="color: #202020; background-color: #E1B02E;">
+                                    Active bookings
+                                </button>
+                            </h2>
+                            <div id="flush-collapseOne" class="accordion-collapse collapse show mb-0"
+                                data-bs-parent="#accordionFlushExample" style="max-height: 50vh; overflow-y: auto;">
+                                <div class="accordion-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th class="col-1">#</th>
+                                                <th class="col-3">Place</th>
+                                                <th class="col-4">From</th>
+                                                <th class="col-4">To</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="active-table-body">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="accordion-item" style=" border-bottom: 1px solid #202020;">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo"
-                                style="color: #202020; background-color: #E1B02E;">
-                                Inactive bookings
-                            </button>
-                        </h2>
-                        <div id="flush-collapseTwo" class="accordion-collapse collapse"
-                            data-bs-parent="#accordionFlushExample" style="max-height: 50vh; overflow-y: auto;">
-                            <div class="accordion-body">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th class="col-1">#</th>
-                                            <th class="col-4">From</th>
-                                            <th class="col-4">To</th>
-                                            <th class="col-3">Place</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>07:00, 21/02/2024</td>
-                                            <td>07:15, 21/02/2024</td>
-                                            <td>A1</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>07:00, 21/02/2024</td>
-                                            <td>08:15, 21/02/2024</td>
-                                            <td>A2</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>07:00, 21/02/2024</td>
-                                            <td>15:00, 21/02/2024</td>
-                                            <td>A3</td>
-                                        </tr>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>07:00, 22/02/2024</td>
-                                            <td>15:00, 22/02/2024</td>
-                                            <td>A3</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>07:00, 22/02/2024</td>
-                                            <td>15:00, 22/02/2024</td>
-                                            <td>A3</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>07:00, 22/02/2024</td>
-                                            <td>15:00, 22/02/2024</td>
-                                            <td>A3</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>07:00, 22/02/2024</td>
-                                            <td>15:00, 22/02/2024</td>
-                                            <td>A3</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>07:00, 22/02/2024</td>
-                                            <td>15:00, 22/02/2024</td>
-                                            <td>A3</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>07:00, 22/02/2024</td>
-                                            <td>15:00, 22/02/2024</td>
-                                            <td>A3</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>07:00, 22/02/2024</td>
-                                            <td>15:00, 22/02/2024</td>
-                                            <td>A3</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+
+                        <!--Inactive Bookings-->
+                        <div class="accordion-item" style=" border-bottom: 1px solid #202020;">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                    aria-controls="flush-collapseTwo"
+                                    style="color: #202020; background-color: #E1B02E;">
+                                    Inactive bookings
+                                </button>
+                            </h2>
+                            <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                                data-bs-parent="#accordionFlushExample" style="max-height: 50vh; overflow-y: auto;">
+                                <div class="accordion-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th class="col-1">#</th>
+                                                <th class="col-3">Place</th>
+                                                <th class="col-4">From</th>
+                                                <th class="col-4">To</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="inactive-table-body">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -466,7 +317,7 @@
     </div>
 
 
-    <script id="date-and-time">
+    <script id="date-and-time-script">
         function load() {
             setDate();
             setToday();
@@ -764,6 +615,15 @@
             }
             else { result = tomorrowDate; }
 
+            if (fromTime < 7 * 60) {
+                alert("The start time is before business hours (07:00-20:00).");
+                return "ERROR";
+            }
+            if (toTime > (20 * 60)) {
+                alert("The end time is hereafter business hours (07:00-20:00).");
+                return "ERROR";
+            }
+
             if (((toTime - fromTime) < 5)) {
                 if ((toTime - fromTime) >= 0) {
                     alert("Less than 5-minute stay.");
@@ -778,7 +638,12 @@
                 return "ERROR";
             }
 
+            let durationH = ((toTime - fromTime) / 60).toFixed(0);
+            let durationM = (toTime - fromTime) - durationH * 60;
+            let wholeDuration = (String(durationH).padStart(2, '0')) + ":" + (String(durationM).padStart(2, '0')) + ":" + (String(0).padStart(2, '0'));
+
             result += ", from:" + (String(hour).padStart(2, '0')) + ":" + (String(min).padStart(2, '0')) + " to:" + (String(hour2).padStart(2, '0')) + ":" + (String(min2).padStart(2, '0'));
+            result += "\nThe stay will be " + wholeDuration + ".";
             alert(result);
             document.getElementById('close-filter').click();
         }
@@ -807,6 +672,135 @@
             arrow_upM2.classList.remove('bi-caret-up-fill');
 
             setToday();
+        }
+    </script>
+
+    <script id="history-script">
+        function loadHistoryModal(){
+            printActiveBookings();
+            printInactiveBookings();
+        }
+        
+        function printActiveBookings() {
+            //При всяко викане на ф-цията, ще се тегли json таблицата
+            let exampleActive = [
+                {
+                    "parkingSpaceId": "A1",
+                    "duration": "04:00:00",
+                    "startTime": "26/02/2024, 09:00"
+                },
+                {
+                    "parkingSpaceId": "A2",
+                    "duration": "08:00:00",
+                    "startTime": "26/02/2024, 12:00"
+                },
+                {
+                    "parkingSpaceId": "A4",
+                    "duration": "07:00:00",
+                    "startTime": "26/02/2024, 11:00"
+                },
+                {
+                    "parkingSpaceId": "A3",
+                    "duration": "04:00:00",
+                    "startTime": "26/02/2024, 10:00"
+                }
+            ];
+            exampleActive.sort(function (a, b) {
+                var dateA = new Date(a.startTime.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2})/, '$3-$2-$1T$4:$5'));
+                var dateB = new Date(b.startTime.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2})/, '$3-$2-$1T$4:$5'));
+
+                return dateA - dateB;
+            });
+
+            console.log(exampleActive);
+            let lengthActive = exampleActive.length;
+            let active_table_body = document.getElementById('active-table-body');
+            active_table_body.innerHTML = '';
+            if (lengthActive == 0) {
+                active_table_body.innerHTML = "<h2 class='d-flex justify-content-center w-100'>There are no active bookings.</h2>";
+            }
+            for (let i = 0; i < lengthActive; i++) {
+                let tr = document.createElement('tr');
+                let th = document.createElement('th');
+                th.scope = 'row';
+                th.innerHTML = (i + 1);
+                tr.appendChild(th);
+
+                let tdPlace = document.createElement('td'); let place = exampleActive[i].parkingSpaceId;
+                let tdFrom = document.createElement('td'); let from = exampleActive[i].startTime;
+                let duration = calculateDuration(exampleActive, i);
+                let tdTo = document.createElement('td'); let to = exampleActive[i].startTime.slice(0, 12) + duration;
+                tdPlace.innerHTML = place; tr.appendChild(tdPlace);
+                tdFrom.innerHTML = from; tr.appendChild(tdFrom);
+                tdTo.innerHTML = to; tr.appendChild(tdTo);
+
+                active_table_body.appendChild(tr);
+            }
+        }
+
+        function printInactiveBookings() {
+            //При всяко викане на ф-цията, ще се тегли json таблицата
+            let exampleInactive = [
+                {
+                    "parkingSpaceId": "A2",
+                    "duration": "02:00:00",
+                    "startTime": "24/02/2024, 11:00"
+                },
+                {
+                    "parkingSpaceId": "A4",
+                    "duration": "02:00:00",
+                    "startTime": "20/02/2024, 11:00"
+                },
+                {
+                    "parkingSpaceId": "A1",
+                    "duration": "03:00:00",
+                    "startTime": "26/02/2024, 07:00"
+                },
+                {
+                    "parkingSpaceId": "A3",
+                    "duration": "02:00:00",
+                    "startTime": "23/02/2024, 11:00"
+                }
+            ];
+
+            exampleInactive.sort(function (a, b) {
+                var dateA = new Date(a.startTime.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2})/, '$3-$2-$1T$4:$5'));
+                var dateB = new Date(b.startTime.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2})/, '$3-$2-$1T$4:$5'));
+
+                return dateB - dateA;
+            });
+
+            let lengthInactive = exampleInactive.length;
+            let inactive_table_body = document.getElementById('inactive-table-body');
+            inactive_table_body.innerHTML = '';
+            if (lengthInactive == 0) {
+                inactive_table_body.innerHTML = "<h2 class='d-flex justify-content-center w-100'>There are no active bookings.</h2>";
+            }
+            for (let i = 0; i < lengthInactive; i++) {
+                let tr = document.createElement('tr');
+                let th = document.createElement('th');
+                th.scope = 'row';
+                th.innerHTML = (i + 1);
+                tr.appendChild(th);
+
+                let tdPlace = document.createElement('td'); let place = exampleInactive[i].parkingSpaceId;
+                let tdFrom = document.createElement('td'); let from = exampleInactive[i].startTime;
+                let duration = calculateDuration(exampleInactive, i);
+                let tdTo = document.createElement('td'); let to = exampleInactive[i].startTime.slice(0, 12) + duration;
+                tdPlace.innerHTML = place; tr.appendChild(tdPlace);
+                tdFrom.innerHTML = from; tr.appendChild(tdFrom);
+                tdTo.innerHTML = to; tr.appendChild(tdTo);
+
+                inactive_table_body.appendChild(tr);
+            }
+        }
+
+        function calculateDuration(tableRow, i) {
+            let durationH = Number(tableRow[i].duration.slice(0, 2));
+            let durationM = Number(tableRow[i].duration.slice(3, 5));
+            durationH += Number(tableRow[i].startTime.slice(12, 14));
+            durationM += Number(tableRow[i].startTime.slice(15, 17));
+            return String(durationH).padStart(2, '0') + ":" + String(durationM).padStart(2, '0');
         }
     </script>
 
