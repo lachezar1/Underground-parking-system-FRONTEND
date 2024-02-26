@@ -30,7 +30,7 @@ signInButton.addEventListener('click', () => {
 
 	usernameInput.value = "";
 	passwordInput.value = "";
-	
+
 	loginusernameDiv.style.border = "1px solid #111642";
 	loginpasswordDiv.style.border = "1px solid #111642";
 
@@ -52,30 +52,34 @@ respLogInButton.addEventListener('click', () => {
 	signUpform.classList.remove('signUpOpen');
 });
 
-usernameInput.addEventListener('input', (event) => {
-	let input = JSON.stringify(event.target.value);
-	if (input.length-2 < 3) {
-		console.log(input.length)
-		loginusernameDiv.style.border = "2px solid red";
-	} else{
-		loginusernameDiv.style.border = "1px solid #111642";
-	}
+// usernameInput.addEventListener('input', (event) => {
+// 	let input = JSON.stringify(event.target.value);
+// 	if (input.length - 2 < 3) {
+// 		loginusernameDiv.style.border = "2px solid red";
+// 	} else {
+// 		loginusernameDiv.style.border = "1px solid #111642";
+// 	}
+// })
+
+// passwordInput.addEventListener('input', (event) => {
+// 	let input = JSON.stringify(event.target.value);
+// 	if (input.length - 2 < 8) {
+// 		loginpasswordDiv.style.border = "2px solid red";
+// 	} else {
+// 		loginpasswordDiv.style.border = "1px solid #111642";
+// 	}
+// })
+
+const errorToast = document.getElementById('myToast');
+const errorToastMessage = document.getElementById('message');
+const errorCloseBtn = document.getElementById('closeBtn');
+
+errorCloseBtn.addEventListener('click', () => {
+	errorToast.classList.remove('showToast');
 })
-
-passwordInput.addEventListener('input', (event) => {
-	let input = JSON.stringify(event.target.value);
-	if (input.length-2 < 8) {
-		console.log(input.length)
-		loginpasswordDiv.style.border = "2px solid red";
-	} else{
-		loginpasswordDiv.style.border = "1px solid #111642";
-	}
-})
-
-
 
 function login() {
-	let url = "https://localhost:44353/User/Login";
+	let url = "https://localhost:7106/User/Login";
 
 	let body = {
 		username: usernameInput.value,
@@ -87,20 +91,23 @@ function login() {
 	fetch(url, {
 		method: 'POST',
 		headers: {
-			'accept': 'text/plain',
+			'accept': '*/*',
 			'Content-Type': 'application/json',
 			'Authorization': `Basic ${token}`
 		},
 		body: JSON.stringify(body)
 	})
-		.then(resp => {
-			if (!resp.ok) {
-				throw new Error("Error in request!");
-			}
-			console.log(resp);
-		})
-		.catch(error => {
-			console.error(error);
-		});
+	.then((resp) => {
+		if (!resp.ok) {
+			return resp.text().then(text => { throw new Error(text) })
+		}
+		localStorage.setItem("token",`${token}`)
+		window.location.href = "#";
 
+	})
+	.catch(error => {
+		console.error(error);
+		errorToastMessage.innerText = "Fail to log in!";
+		errorToast.classList.add('showToast');
+	});
 }

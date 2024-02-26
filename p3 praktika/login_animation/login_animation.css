@@ -235,6 +235,25 @@ form {
     display: none !important;
 }
 
+.myToast{
+    background-color: rgba(230, 55, 55, 0.146);
+    /* border-left: 6px solid rgb(138, 0, 0) !important; */
+    border: 2px solid red;
+    color: red;
+    border-radius: 10px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    height: 90px;
+    width: 350px;
+    display: none !important;
+}
+
+.showToast{
+    display: flex !important;
+    transition-timing-function: ease;
+}
+
 @media only screen and (max-width: 1000px) {
     .container {
         width: 80vw;
