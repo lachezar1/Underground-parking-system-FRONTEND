@@ -41,7 +41,7 @@ body {
 
 .widget .capacity-label {
     color: white;
-    margin-top: 25vh;
+    margin-top: 15dvh;
     text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
     font-weight: 100;
 }
