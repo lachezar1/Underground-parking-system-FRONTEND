@@ -299,4 +299,9 @@ form {
         transform: translateY(0px) !important;
     }
 
+    .form-control:focus {
+        box-shadow: none;
+    }
+       
+    
 }
