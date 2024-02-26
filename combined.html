@@ -171,8 +171,7 @@
                                             style="cursor: pointer; color: #202020;"
                                             onmouseover="this.style.color = '#E1B02E';"
                                             onmouseleave="this.style.color = '#202020';"></i></div>
-                                    <p class="fs-5 px-1 border my-0" id="hour-text" type="number" contenteditable
-                                        onkeyup="checkHourFormat(this.innerText, this, 0);">07</p>
+                                    <p class="fs-5 px-1 border my-0" id="hour-text" type="number">07</p>
                                     <div onclick="downH(1);"><i class="px-1 fs-4 bi bi-caret-down-fill" id="arrow-downH"
                                             style="cursor: pointer; color: #202020;"
                                             onmouseover="this.style.color = '#E1B02E';"
@@ -187,8 +186,7 @@
                                             style="cursor: pointer; color: #202020;"
                                             onmouseover="this.style.color = '#E1B02E';"
                                             onmouseleave="this.style.color = '#202020';"></i></div>
-                                    <p class="fs-5 px-1 border my-0" id="mins-text" contenteditable
-                                        onkeyup="checkMinFormat(this.innerText, this, 0, document.getElementById('mins-text2'));">
+                                    <p class="fs-5 px-1 border my-0" id="mins-text">
                                         00</p>
                                     <div onclick="downM(1);"><i class="px-1 fs-4 bi bi-caret-down-fill" id="arrow-downM"
                                             style="cursor: pointer; color: #202020;"
@@ -208,8 +206,7 @@
                                             onmouseover="this.style.color = '#E1B02E';"
                                             onmouseleave="this.style.color = '#202020';"></i>
                                     </div>
-                                    <p class="fs-5 px-1 border my-0" id="hour-text2" type="number" contenteditable
-                                        onkeyup="checkHourFormat(this.innerText, this, 1);">07
+                                    <p class="fs-5 px-1 border my-0" id="hour-text2" type="number">07
                                     </p>
                                     <div onclick="downH(2);"><i class="px-1 fs-4 bi bi-caret-down-fill"
                                             id="arrow-downH2" style="cursor: pointer; color: #202020;"
@@ -225,8 +222,7 @@
                                             onmouseover="this.style.color = '#E1B02E';"
                                             onmouseleave="this.style.color = '#202020';"></i>
                                     </div>
-                                    <p class="fs-5 px-1 border my-0" id="mins-text2" contenteditable
-                                        onkeyup="checkMinFormat(this.innerText, this, 1, document.getElementById('mins-text'));">
+                                    <p class="fs-5 px-1 border my-0" id="mins-text2">
                                         00</p>
                                     <div onclick="downM(2);"><i class="px-1 fs-4 bi bi-caret-down-fill"
                                             id="arrow-downM2" style="cursor: pointer; color: #202020;"
@@ -336,173 +332,11 @@
         var hour2 = 7;
         var min2 = 0;
 
-        function checkHourFormat(input, element, index) {
-            if (index == 0) {
-                if (input < 7) {
-                    element.classList.add('bg-danger', 'text-light');
-                    arrow_upH.classList.add('bi-caret-up');
-                    arrow_upH.classList.remove('bi-caret-up-fill');
-                    arrow_downH.classList.remove('bi-caret-down');
-                    arrow_downH.classList.add('bi-caret-down-fill');
-                }
-                else if (input > 20) {
-                    element.classList.add('bg-danger', 'text-light');
-                    arrow_downH.classList.add('bi-caret-down');
-                    arrow_downH.classList.remove('bi-caret-down-fill');
-                    arrow_upH.classList.remove('bi-caret-up');
-                    arrow_upH.classList.add('bi-caret-up-fill');
-                }
-                else {
-                    element.classList.remove('bg-danger', 'text-light');
-                    hour = input;
-                    if (hour == 7) {
-                        arrow_downH.classList.add('bi-caret-down-fill');
-                        arrow_downH.classList.remove('bi-caret-down');
-                        arrow_upH.classList.add('bi-caret-up');
-                        arrow_upH.classList.remove('bi-caret-up-fill');
-                    }
-                    else if (hour == 20) {
-                        arrow_downH.classList.add('bi-caret-down');
-                        arrow_downH.classList.remove('bi-caret-down-fill');
-                        arrow_upH.classList.add('bi-caret-up-fill');
-                        arrow_upH.classList.remove('bi-caret-up');
-                    }
-                    else {
-                        arrow_upH.classList.add('bi-caret-up-fill');
-                        arrow_upH.classList.remove('bi-caret-up');
-                        arrow_downH.classList.add('bi-caret-down-fill');
-                        arrow_downH.classList.remove('bi-caret-down');
-                    }
-                }
-            }
-
-            if (index == 1) {
-                if (input < 7) {
-                    element.classList.add('bg-danger', 'text-light');
-                    arrow_upH2.classList.add('bi-caret-up');
-                    arrow_upH2.classList.remove('bi-caret-up-fill');
-                    arrow_downH2.classList.remove('bi-caret-down');
-                    arrow_downH2.classList.add('bi-caret-down-fill');
-                }
-                else if (input > 20) {
-                    element.classList.add('bg-danger', 'text-light');
-                    arrow_downH2.classList.add('bi-caret-down');
-                    arrow_downH2.classList.remove('bi-caret-down-fill');
-                    arrow_upH2.classList.remove('bi-caret-up');
-                    arrow_upH2.classList.add('bi-caret-up-fill');
-                }
-                else {
-                    element.classList.remove('bg-danger', 'text-light');
-                    hour2 = input;
-                    if (hour2 == 7) {
-                        arrow_downH2.classList.add('bi-caret-down-fill');
-                        arrow_downH2.classList.remove('bi-caret-down');
-                        arrow_upH2.classList.add('bi-caret-up');
-                        arrow_upH2.classList.remove('bi-caret-up-fill');
-                    }
-                    else if (hour2 == 20) {
-                        arrow_downH2.classList.add('bi-caret-down');
-                        arrow_downH2.classList.remove('bi-caret-down-fill');
-                        arrow_upH2.classList.add('bi-caret-up-fill');
-                        arrow_upH2.classList.remove('bi-caret-up');
-                    }
-                    else {
-                        arrow_upH2.classList.add('bi-caret-up-fill');
-                        arrow_upH2.classList.remove('bi-caret-up');
-                        arrow_downH2.classList.add('bi-caret-down-fill');
-                        arrow_downH2.classList.remove('bi-caret-down');
-                    }
-                }
-            }
-        }
-
-        function checkMinFormat(input, element, index) {
-            if (index == 0) {
-                if (input < 0) {
-                    element.classList.add('bg-danger', 'text-light');
-                    arrow_upM.classList.add('bi-caret-up');
-                    arrow_upM.classList.remove('bi-caret-up-fill');
-                    arrow_downM.classList.add('bi-caret-down-fill');
-                    arrow_downM.classList.remove('bi-caret-down');
-                }
-                else if (input > 59) {
-                    element.classList.add('bg-danger', 'text-light');
-                    arrow_upM.classList.remove('bi-caret-up');
-                    arrow_upM.classList.add('bi-caret-up-fill');
-                    arrow_downM.classList.remove('bi-caret-down-fill');
-                    arrow_downM.classList.add('bi-caret-down');
-                }
-                else {
-                    element.classList.remove('bg-danger', 'text-light');
-                    min = input;
-                    if (min == 0) {
-                        arrow_downM.classList.add('bi-caret-down-fill');
-                        arrow_downM.classList.remove('bi-caret-down');
-                        arrow_upM.classList.add('bi-caret-up');
-                        arrow_upM.classList.remove('bi-caret-up-fill');
-                    }
-                    else if (min >= 45) {
-                        arrow_downM.classList.remove('bi-caret-down-fill');
-                        arrow_downM.classList.add('bi-caret-down');
-                        arrow_upM.classList.remove('bi-caret-up');
-                        arrow_upM.classList.add('bi-caret-up-fill');
-                    }
-                    else {
-                        arrow_upM.classList.add('bi-caret-up-fill');
-                        arrow_upM.classList.remove('bi-caret-up');
-                        arrow_downM.classList.remove('bi-caret-down');
-                        arrow_downM.classList.add('bi-caret-down-fill');
-                    }
-                }
-            }
-
-            if (index == 1) {
-                if (input < 0) {
-                    element.classList.add('bg-danger', 'text-light');
-                    arrow_upM2.classList.add('bi-caret-up');
-                    arrow_upM2.classList.remove('bi-caret-up-fill');
-                    arrow_downM2.classList.add('bi-caret-down-fill');
-                    arrow_downM2.classList.remove('bi-caret-down');
-                }
-                else if (input > 59) {
-                    element.classList.add('bg-danger', 'text-light');
-                    arrow_upM2.classList.remove('bi-caret-up');
-                    arrow_upM2.classList.add('bi-caret-up-fill');
-                    arrow_downM2.classList.remove('bi-caret-down-fill');
-                    arrow_downM2.classList.add('bi-caret-down');
-                }
-                else {
-                    element.classList.remove('bg-danger', 'text-light');
-                    min2 = input;
-                    if (min2 == 0) {
-                        arrow_downM2.classList.add('bi-caret-down-fill');
-                        arrow_downM2.classList.remove('bi-caret-down');
-                        arrow_upM2.classList.add('bi-caret-up');
-                        arrow_upM2.classList.remove('bi-caret-up-fill');
-                    }
-                    else if (min2 >= 45) {
-                        arrow_downM2.classList.remove('bi-caret-down-fill');
-                        arrow_downM2.classList.add('bi-caret-down');
-                        arrow_upM2.classList.remove('bi-caret-up');
-                        arrow_upM2.classList.add('bi-caret-up-fill');
-                    }
-                    else {
-                        arrow_upM2.classList.add('bi-caret-up-fill');
-                        arrow_upM2.classList.remove('bi-caret-up');
-                        arrow_downM2.classList.remove('bi-caret-down');
-                        arrow_downM2.classList.add('bi-caret-down-fill');
-                    }
-                }
-            }
-
-        }
-
         function upH(par) {
             if (par == 1) {
                 if (hour != 7) {
                     hour--;
                     hour_text.innerText = (String(hour).padStart(2, '0'));
-                    hour_text.classList.remove('bg-danger', 'text-light');
                     if (arrow_downH.classList == "px-1 fs-4 bi bi-caret-down") {
                         arrow_downH.classList.add('bi-caret-down-fill');
                         arrow_downH.classList.remove('bi-caret-down');
@@ -517,7 +351,6 @@
                 if (hour2 != 7) {
                     hour2--;
                     hour_text2.innerText = (String(hour2).padStart(2, '0'));
-                    hour_text2.classList.remove('bg-danger', 'text-light');
                     if (arrow_downH2.classList == "px-1 fs-4 bi bi-caret-down") {
                         arrow_downH2.classList.add('bi-caret-down-fill');
                         arrow_downH2.classList.remove('bi-caret-down');
@@ -535,7 +368,6 @@
                 if (hour != 20) {
                     hour++;
                     hour_text.innerText = (String(hour).padStart(2, '0'));
-                    hour_text.classList.remove('bg-danger', 'text-light');
                     if (arrow_upH.classList == "px-1 fs-4 bi bi-caret-up") {
                         arrow_upH.classList.add('bi-caret-up-fill');
                         arrow_upH.classList.remove('bi-caret-up');
@@ -551,7 +383,6 @@
                 if (hour2 != 20) {
                     hour2++;
                     hour_text2.innerText = (String(hour2).padStart(2, '0'));
-                    hour_text2.classList.remove('bg-danger', 'text-light');
                     if (arrow_upH2.classList == "px-1 fs-4 bi bi-caret-up") {
                         arrow_upH2.classList.add('bi-caret-up-fill');
                         arrow_upH2.classList.remove('bi-caret-up');
@@ -585,7 +416,6 @@
                         return "invalid";
                     }
                     mins_text.innerText = (String(min).padStart(2, '0'));
-                    mins_text.classList.remove('bg-danger', 'text-light');
                     if (arrow_downM.classList == "px-1 fs-4 bi bi-caret-down") {
                         arrow_downM.classList.add('bi-caret-down-fill');
                         arrow_downM.classList.remove('bi-caret-down');
@@ -616,7 +446,6 @@
                         return "invalid";
                     }
                     mins_text2.innerText = (String(min2).padStart(2, '0'));
-                    mins_text2.classList.remove('bg-danger', 'text-light');
                     if (arrow_downM2.classList == "px-1 fs-4 bi bi-caret-down") {
                         arrow_downM2.classList.add('bi-caret-down-fill');
                         arrow_downM2.classList.remove('bi-caret-down');
@@ -646,7 +475,6 @@
                         return "invalid";
                     }
                     mins_text.innerText = String(min).padStart(2, '0');
-                    mins_text.classList.remove('bg-danger', 'text-light');
                     if (arrow_upM.classList == "px-1 fs-4 bi bi-caret-up") {
                         arrow_upM.classList.add('bi-caret-up-fill');
                         arrow_upM.classList.remove('bi-caret-up');
@@ -659,9 +487,8 @@
                 }
             }
 
-            else if (par == 2) {
+            if (par == 2) {
                 if (min2 < 60) {
-                    //mins_text2.innerText = '';
                     if (min2 < 15) {
                         min2 = 15;
                     }
@@ -672,10 +499,9 @@
                         min2 = 45;
                     }
                     else {
-                        min2 = 0;
+                        return "invalid";
                     }
                     mins_text2.innerText = String(min2).padStart(2, '0');
-                    mins_text2.classList.remove('bg-danger', 'text-light');
                     if (arrow_upM2.classList == "px-1 fs-4 bi bi-caret-up") {
                         arrow_upM2.classList.add('bi-caret-up-fill');
                         arrow_upM2.classList.remove('bi-caret-up');
@@ -699,18 +525,16 @@
 
             const now = new Date();
             const nowTime = now.getHours() * 60 + now.getMinutes();
+            console.log(nowTime);
+            console.log(fromTime);
 
-            if (hour_text.classList.contains('bg-danger') || hour_text2.classList.contains('bg-danger') || mins_text.classList.contains('bg-danger') || mins_text2.classList.contains('bg-danger')) {
-                alert("Invalid time interval.");
-                return "ERROR";
-            }
             if (todaybool == true) {
                 result = todayDate;
                 if (toTime < nowTime) {
                     alert("The end time has already passed. (it ends it)");
                     return "ERROR";
                 }
-                else if (fromTime > nowTime) { //THIS SHOULD BE TESTED ON FRIDAY
+                else if (fromTime < nowTime) { //THIS SHOULD BE TESTED ON FRIDAY
                     alert("The start time has already passed. (but it proceeds/accepts it)");
                 }
             }
