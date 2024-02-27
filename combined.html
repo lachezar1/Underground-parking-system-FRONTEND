@@ -282,7 +282,7 @@
                             </div>
                         </div>
 
-                        <!--Inactive Bookings-->
+                        <!--Inactive Bookings
                         <div class="accordion-item" style=" border-bottom: 1px solid #202020;">
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -309,7 +309,7 @@
                                     </table>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -678,15 +678,14 @@
     <script id="history-script">
         function loadHistoryModal() {
             printActiveBookings();
-            printInactiveBookings();
         }
 
         function printActiveBookings() {
-
-
-            //При всяко викане на ф-цията, ще се тегли json таблицата
-            let exampleActive;
-            let url = '';
+            let active_table_body = document.getElementById('active-table-body');
+            active_table_body.innerHTML = '';
+            //NEWEST
+            let exampleActive = [];
+            let url = 'http://localhost:8080/booking';
             let token = localStorage.getItem('token');
             const headers = new Headers();
             if (token) {
@@ -708,7 +707,7 @@
                     exampleActive = resp;
                 })
                 .catch(error => {
-                    console.log('ERROR: '+ error );
+                    console.log('ERROR: ' + error);
                 });
 
             let lengthActive = exampleActive.length;
@@ -724,8 +723,6 @@
             });
 
             console.log(exampleActive);
-            let active_table_body = document.getElementById('active-table-body');
-            active_table_body.innerHTML = '';
 
             for (let i = 0; i < lengthActive; i++) {
                 let tr = document.createElement('tr');
