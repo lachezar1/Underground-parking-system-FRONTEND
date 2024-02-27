@@ -676,35 +676,46 @@
     </script>
 
     <script id="history-script">
-        function loadHistoryModal(){
+        function loadHistoryModal() {
             printActiveBookings();
             printInactiveBookings();
         }
-        
+
         function printActiveBookings() {
+
+
             //При всяко викане на ф-цията, ще се тегли json таблицата
-            let exampleActive = [
-                {
-                    "parkingSpaceId": "A1",
-                    "duration": "04:00:00",
-                    "startTime": "26/02/2024, 09:00"
-                },
-                {
-                    "parkingSpaceId": "A2",
-                    "duration": "08:00:00",
-                    "startTime": "26/02/2024, 12:00"
-                },
-                {
-                    "parkingSpaceId": "A4",
-                    "duration": "07:00:00",
-                    "startTime": "26/02/2024, 11:00"
-                },
-                {
-                    "parkingSpaceId": "A3",
-                    "duration": "04:00:00",
-                    "startTime": "26/02/2024, 10:00"
-                }
-            ];
+            let exampleActive;
+            let url = '';
+            let token = localStorage.getItem('token');
+            const headers = new Headers();
+            if (token) {
+                headers.append(
+                    'Authorization', `Basic ${token}`
+                )
+            }
+            headers.append(
+                'accept', `text\plain`
+            )
+            fetch(url, {
+                method: 'GET',
+                headers
+            })
+                .then((resp) => {
+                    if (!resp.ok) {
+                        return resp.text().then(text => { throw new Error(text) })
+                    }
+                    exampleActive = resp;
+                })
+                .catch(error => {
+                    console.log('ERROR: '+ error );
+                });
+
+            let lengthActive = exampleActive.length;
+            if (lengthActive == 0) {
+                active_table_body.innerHTML = "<h2 class='d-flex justify-content-center w-100'>There are no active bookings.</h2>";
+                return '';
+            }
             exampleActive.sort(function (a, b) {
                 var dateA = new Date(a.startTime.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2})/, '$3-$2-$1T$4:$5'));
                 var dateB = new Date(b.startTime.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2})/, '$3-$2-$1T$4:$5'));
@@ -713,12 +724,9 @@
             });
 
             console.log(exampleActive);
-            let lengthActive = exampleActive.length;
             let active_table_body = document.getElementById('active-table-body');
             active_table_body.innerHTML = '';
-            if (lengthActive == 0) {
-                active_table_body.innerHTML = "<h2 class='d-flex justify-content-center w-100'>There are no active bookings.</h2>";
-            }
+
             for (let i = 0; i < lengthActive; i++) {
                 let tr = document.createElement('tr');
                 let th = document.createElement('th');
@@ -728,79 +736,14 @@
 
                 let tdPlace = document.createElement('td'); let place = exampleActive[i].parkingSpaceId;
                 let tdFrom = document.createElement('td'); let from = exampleActive[i].startTime;
-                let duration = calculateDuration(exampleActive, i);
-                let tdTo = document.createElement('td'); let to = exampleActive[i].startTime.slice(0, 12) + duration;
+                let tdTo = document.createElement('td'); let to = exampleActive[i].endTime;
+
                 tdPlace.innerHTML = place; tr.appendChild(tdPlace);
                 tdFrom.innerHTML = from; tr.appendChild(tdFrom);
                 tdTo.innerHTML = to; tr.appendChild(tdTo);
 
                 active_table_body.appendChild(tr);
             }
-        }
-
-        function printInactiveBookings() {
-            //При всяко викане на ф-цията, ще се тегли json таблицата
-            let exampleInactive = [
-                {
-                    "parkingSpaceId": "A2",
-                    "duration": "02:00:00",
-                    "startTime": "24/02/2024, 11:00"
-                },
-                {
-                    "parkingSpaceId": "A4",
-                    "duration": "02:00:00",
-                    "startTime": "20/02/2024, 11:00"
-                },
-                {
-                    "parkingSpaceId": "A1",
-                    "duration": "03:00:00",
-                    "startTime": "26/02/2024, 07:00"
-                },
-                {
-                    "parkingSpaceId": "A3",
-                    "duration": "02:00:00",
-                    "startTime": "23/02/2024, 11:00"
-                }
-            ];
-
-            exampleInactive.sort(function (a, b) {
-                var dateA = new Date(a.startTime.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2})/, '$3-$2-$1T$4:$5'));
-                var dateB = new Date(b.startTime.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2})/, '$3-$2-$1T$4:$5'));
-
-                return dateB - dateA;
-            });
-
-            let lengthInactive = exampleInactive.length;
-            let inactive_table_body = document.getElementById('inactive-table-body');
-            inactive_table_body.innerHTML = '';
-            if (lengthInactive == 0) {
-                inactive_table_body.innerHTML = "<h2 class='d-flex justify-content-center w-100'>There are no active bookings.</h2>";
-            }
-            for (let i = 0; i < lengthInactive; i++) {
-                let tr = document.createElement('tr');
-                let th = document.createElement('th');
-                th.scope = 'row';
-                th.innerHTML = (i + 1);
-                tr.appendChild(th);
-
-                let tdPlace = document.createElement('td'); let place = exampleInactive[i].parkingSpaceId;
-                let tdFrom = document.createElement('td'); let from = exampleInactive[i].startTime;
-                let duration = calculateDuration(exampleInactive, i);
-                let tdTo = document.createElement('td'); let to = exampleInactive[i].startTime.slice(0, 12) + duration;
-                tdPlace.innerHTML = place; tr.appendChild(tdPlace);
-                tdFrom.innerHTML = from; tr.appendChild(tdFrom);
-                tdTo.innerHTML = to; tr.appendChild(tdTo);
-
-                inactive_table_body.appendChild(tr);
-            }
-        }
-
-        function calculateDuration(tableRow, i) {
-            let durationH = Number(tableRow[i].duration.slice(0, 2));
-            let durationM = Number(tableRow[i].duration.slice(3, 5));
-            durationH += Number(tableRow[i].startTime.slice(12, 14));
-            durationM += Number(tableRow[i].startTime.slice(15, 17));
-            return String(durationH).padStart(2, '0') + ":" + String(durationM).padStart(2, '0');
         }
     </script>
 
