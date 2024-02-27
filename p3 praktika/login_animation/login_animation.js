@@ -12,6 +12,9 @@ const passwordInput = document.getElementById('password');
 const loginusernameDiv = document.getElementById('loginUsername');
 const loginpasswordDiv = document.getElementById('loginPassword');
 
+const errorToast = document.getElementById('myToast');
+const errorToastMessage = document.getElementById('message');
+const errorCloseBtn = document.getElementById('closeBtn');
 respLogInButton.style.display = "none";
 
 signUpButton.addEventListener('click', () => {
@@ -23,7 +26,6 @@ signUpButton.addEventListener('click', () => {
 
 	container.classList.add("right-panel-active");
 });
-
 signInButton.addEventListener('click', () => {
 	respLogInButton.style.display = "none";
 	respsignUpButton.style.display = "none";
@@ -36,7 +38,6 @@ signInButton.addEventListener('click', () => {
 
 	container.classList.remove("right-panel-active");
 });
-
 respsignUpButton.addEventListener('click', () => {
 	setTimeout(() => {
 		respsignUpButton.style.display = "none";
@@ -51,29 +52,22 @@ respLogInButton.addEventListener('click', () => {
 	}, "500");
 	signUpform.classList.remove('signUpOpen');
 });
-
-// usernameInput.addEventListener('input', (event) => {
-// 	let input = JSON.stringify(event.target.value);
-// 	if (input.length - 2 < 3) {
-// 		loginusernameDiv.style.border = "2px solid red";
-// 	} else {
-// 		loginusernameDiv.style.border = "1px solid #111642";
-// 	}
-// })
-
-// passwordInput.addEventListener('input', (event) => {
-// 	let input = JSON.stringify(event.target.value);
-// 	if (input.length - 2 < 8) {
-// 		loginpasswordDiv.style.border = "2px solid red";
-// 	} else {
-// 		loginpasswordDiv.style.border = "1px solid #111642";
-// 	}
-// })
-
-const errorToast = document.getElementById('myToast');
-const errorToastMessage = document.getElementById('message');
-const errorCloseBtn = document.getElementById('closeBtn');
-
+usernameInput.addEventListener('input', (event) => {
+	let input = JSON.stringify(event.target.value);
+	if (input.length - 2 < 1) {
+		loginusernameDiv.style.border = "2px solid red";
+	} else {
+		loginusernameDiv.style.border = "1px solid #111642";
+	}
+})
+passwordInput.addEventListener('input', (event) => {
+	let input = JSON.stringify(event.target.value);
+	if (input.length - 2 < 1) {
+		loginpasswordDiv.style.border = "2px solid red";
+	} else {
+		loginpasswordDiv.style.border = "1px solid #111642";
+	}
+})
 errorCloseBtn.addEventListener('click', () => {
 	errorToast.classList.remove('showToast');
 })
@@ -108,6 +102,48 @@ function login() {
 	.catch(error => {
 		console.error(error);
 		errorToastMessage.innerText = "Fail to log in!";
+		errorToast.classList.add('showToast');
+	});
+}
+
+const firstName = document.getElementById('firstName');
+const lastName = document.getElementById('lastName');
+const email = document.getElementById('email');
+const usernameSignUp = document.getElementById('usernameSignUp');
+const passwordSignUp = document.getElementById('passwordSignUp');
+const plate = document.getElementById('plate');
+
+function register() {
+	let url = "https://localhost:7106/User/Register";
+
+	let body = {
+		username: firstName.value,
+  		password: passwordSignUp.value,
+  		firstName: firstName.value,
+  		lastName: lastName.value,
+  		plate: plate.value,
+  		email: email.value
+	}
+
+	let token = btoa(`${body.username}:${body.password}`);
+
+	fetch(url, {
+		method: 'POST',
+		headers: {
+			'accept': '*/*',
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(body)
+	})
+	.then((resp) => {
+		if (!resp.ok) {
+			return resp.text().then(text => { throw new Error(text) })
+		}
+		window.location.href = "#";
+		localStorage.setItem("token",`${token}`)
+	})
+	.catch(error => {
+		errorToastMessage.innerText = error;
 		errorToast.classList.add('showToast');
 	});
 }
