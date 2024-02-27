@@ -117,7 +117,7 @@ function register() {
 	let url = "https://localhost:7106/User/Register";
 
 	let body = {
-		username: firstName.value,
+		username: usernameSignUp.value,
   		password: passwordSignUp.value,
   		firstName: firstName.value,
   		lastName: lastName.value,
