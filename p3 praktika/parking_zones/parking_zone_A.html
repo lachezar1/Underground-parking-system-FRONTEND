@@ -178,6 +178,9 @@
             #current-spot-image {
                 height: 60vh;
             }
+            .rotation{
+                transform: rotate(90deg);
+            }
         }
 
         @media only screen and (max-width: 600px) {
@@ -445,7 +448,7 @@
                             <button type="button" class="btn p-0" data-bs-dismiss="modal" aria-label="Close"
                                 id="close-filter"><i class="bi bi-x fs-1" style="color: #E1B02E;"></i></button>
                         </div>
-                        <div class="modal-body d-flex justify-content-center" id="map-body"
+                        <div class="modal-body d-flex flex-column flex-md-row justify-content-center" id="map-body"
                             style="background-color: #EDEDEB;">
 
                         </div>
@@ -1238,7 +1241,8 @@
             if (section == 'A') {
                 for (let i = 0; i < 9; i++) {
                     let img = document.createElement('img');
-                    img.classList.add('col-1');
+                    img.classList.add('col-1', 'rotation', 'p-0', 'm-0');
+                    
                     if (i == 0) {
                         img.src = './parking_images/car1.svg';
                     }
