@@ -1,3 +1,4 @@
+var availableSpots = [];
 //date and time
 function load() {
     setDate();
@@ -22,8 +23,9 @@ function setDate() {
     let day = date.getDate();
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
-    todayDate = (String(day).padStart(2, '0')) + "/" + (String(month).padStart(2, '0')) + "/" + (String(year).padStart(4, '0'));
+    // todayDate = (String(day).padStart(2, '0')) + "/" + (String(month).padStart(2, '0')) + "/" + (String(year).padStart(4, '0'));
 
+    todayDate = (String(year).padStart(4, '0')) + "-" + (String(month).padStart(2, '0')) + "-" + (String(day).padStart(2, '0'));
     document.getElementById('todays-date').innerHTML = (String(day).padStart(2, '0'));
     document.getElementById('todays-month').innerHTML = (String(month).padStart(2, '0'));
     document.getElementById('todays-year').innerHTML = (String(year).padStart(4, '0'));
@@ -32,7 +34,7 @@ function setDate() {
     day = currentDate.getDate();
     month = currentDate.getMonth() + 1;
     year = currentDate.getFullYear();
-    tomorrowDate = (String(day).padStart(2, '0')) + "/" + (String(month).padStart(2, '0')) + "/" + (String(year).padStart(4, '0'));
+    tomorrowDate = (String(year).padStart(4, '0')) + "-" + (String(month).padStart(2, '0')) + "-" + (String(day).padStart(2, '0'));
 
     document.getElementById('tomorrows-date').innerHTML = (String(day).padStart(2, '0'));
     document.getElementById('tomorrows-month').innerHTML = (String(month).padStart(2, '0'));
@@ -322,10 +324,50 @@ function applyingFilters() {
     let durationM = (toTime - fromTime) - durationH * 60;
     let wholeDuration = (String(durationH).padStart(2, '0')) + ":" + (String(durationM).padStart(2, '0')) + ":" + (String(0).padStart(2, '0'));
 
-    result += ", from:" + (String(hour).padStart(2, '0')) + ":" + (String(min).padStart(2, '0')) + " to:" + (String(hour2).padStart(2, '0')) + ":" + (String(min2).padStart(2, '0'));
-    result += "\nThe stay will be " + wholeDuration + ".";
-    alert(result);
+    let from = result + "T" + (String(hour).padStart(2, '0')) + ":" +
+        (String(min).padStart(2, '0')) + ":00.000Z";
+
+    let to = result + "T" + (String(hour2).padStart(2, '0')) + ":" +
+        (String(min2).padStart(2, '0')) + ":00.000Z";
+    fetchFilter(from, to);
     document.getElementById('close-filter').click();
+}
+//2024-02-29T10:38:56.336Z
+async function fetchFilter(from, to) {
+    let url = new URL("http://localhost:8080/api/parkSpaceGetAvailableByFilter?From=&To=");
+    url.searchParams.set('From', from);
+    url.searchParams.set('To', to);
+
+    let token = localStorage.getItem('token');
+    const headers = new Headers();
+    if (token) {
+        headers.append(
+            'Authorization', `Basic ${token}`
+        )
+    }
+    headers.append(
+        'accept', `text\plain`
+    )
+    await fetch(url, {
+        method: 'GET',
+        headers
+    })
+        .then((resp) => {
+            if (!resp.ok) {
+                return resp.text().then(text => { throw new Error(text) })
+            }
+            return resp.json();
+            // console.log(asd);
+            // availableSpots = resp.json().then(x => x);
+
+            // console.log(availableSpots);
+            // console.log(resp.json())
+        }).then(resp => {
+            availableSpots = resp;
+        })
+        .catch(error => {
+            console.log('ERROR: ' + error);
+        });
 }
 
 //RESTARTING FILTERS
@@ -428,6 +470,7 @@ function calculateDuration(tableRow, i) {
     return String(durationH).padStart(2, '0') + ":" + String(durationM).padStart(2, '0');
 }
 
+
 //allocate parking spots
 var image_of_spot = document.getElementById('current-spot-image');
 var current_spot = document.getElementById('current-spot');
@@ -435,7 +478,7 @@ var section = 'A';
 var last_index = 0;
 var last_A = 0;
 var last_B = 0;
-var availableSpots = ["A1", "A4", "A5", "A6", "A7", "A8", "A9", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "invalid"];
+//var availableSpots = ["A1", "A4", "A5", "A6", "A7", "A8", "A9", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "Disabled"];
 availableSpots.sort(function (a, b) {
     if (a.name < b.name) {
         return -1;
@@ -449,25 +492,25 @@ availableSpots.sort(function (a, b) {
 function changeSector() {
     if (section == 'B') {
         for (let i = 0; i < availableSpots.length; i++) {
-            if (availableSpots[i].startsWith("A")) {
+            if (availableSpots[i].name.startsWith("A")) {
                 last_index = i;
                 break;
             }
         }
         section = 'A';
         image_of_spot.src = './parking_images/car1.svg';
-        current_spot.innerHTML = availableSpots[last_index];
+        current_spot.innerHTML = availableSpots[last_index].name;
     }
     else if (section == 'A') {
         for (let i = 0; i < availableSpots.length; i++) {
-            if (availableSpots[i].startsWith("B")) {
+            if (availableSpots[i].name.startsWith("B")) {
                 last_index = i;
                 break;
             }
         }
         section = 'B';
         image_of_spot.src = './parking_images/car1.svg';
-        current_spot.innerHTML = availableSpots[last_index];
+        current_spot.innerHTML = availableSpots[last_index].name;
     }
     console.log(section);
 }
@@ -485,18 +528,18 @@ function spot(direction) {
             last_index--;
         }
 
-        if (availableSpots[last_index].startsWith("A") == true) {
+        if (availableSpots[last_index].name.startsWith("A") == true) {
 
-            if (availableSpots[last_index] == "A1") {
+            if (availableSpots[last_index].name == "A1") {
                 image_of_spot.src = './parking_images/car1.svg';
             }
-            else if (Number(availableSpots[last_index][1]) % 2 == 1) {
+            else if (Number(availableSpots[last_index].name[1]) % 2 == 1) {
                 image_of_spot.src = './parking_images/car3.svg';
             }
-            else if (Number(availableSpots[last_index][1]) % 2 == 0) {
+            else if (Number(availableSpots[last_index].name[1]) % 2 == 0) {
                 image_of_spot.src = './parking_images/car2.svg';
             }
-            current_spot.innerHTML = availableSpots[last_index];
+            current_spot.innerHTML = availableSpots[last_index].name;
         }
         else {
             last_index--;
@@ -515,23 +558,23 @@ function spot(direction) {
         }
 
 
-        if (availableSpots[last_index].startsWith("B") == true) {
+        if (availableSpots[last_index].name.startsWith("B") == true) {
 
-            if (availableSpots[last_index] == "B1") {
+            if (availableSpots[last_index].name == "B1") {
                 image_of_spot.src = './parking_images/car1.svg';
             }
-            else if (Number(availableSpots[last_index][1]) % 2 == 1) {
+            else if (Number(availableSpots[last_index].name[1]) % 2 == 1) {
                 image_of_spot.src = './parking_images/car3.svg';
             }
-            else if (Number(availableSpots[last_index][1]) % 2 == 0) {
+            else if (Number(availableSpots[last_index].name[1]) % 2 == 0) {
                 image_of_spot.src = './parking_images/car2.svg';
             }
-            current_spot.innerHTML = availableSpots[last_index];
+            current_spot.innerHTML = availableSpots[last_index].name;
         }
 
-        else if (availableSpots[last_index] == "invalid") {
+        else if (availableSpots[last_index].name == "Disabled") {
             image_of_spot.src = './parking_images/invalid.svg';
-            current_spot.innerHTML = availableSpots[last_index];
+            current_spot.innerHTML = availableSpots[last_index].name;
         }
 
         else {
