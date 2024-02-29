@@ -1,3 +1,6 @@
+let startTime = "";
+let duration = "";
+let spaceId = 0;
 var availableSpots = [];
 //date and time
 function load() {
@@ -320,17 +323,64 @@ function applyingFilters() {
         return "ERROR";
     }
 
-    let durationH = ((toTime - fromTime) / 60).toFixed(0);
+    let durationH = Math.floor((toTime - fromTime) / 60);
     let durationM = (toTime - fromTime) - durationH * 60;
     let wholeDuration = (String(durationH).padStart(2, '0')) + ":" + (String(durationM).padStart(2, '0')) + ":" + (String(0).padStart(2, '0'));
 
+    document.getElementById('close-filter').click();
     let from = result + "T" + (String(hour).padStart(2, '0')) + ":" +
         (String(min).padStart(2, '0')) + ":00.000Z";
 
     let to = result + "T" + (String(hour2).padStart(2, '0')) + ":" +
         (String(min2).padStart(2, '0')) + ":00.000Z";
     fetchFilter(from, to);
-    document.getElementById('close-filter').click();
+
+
+    startTime = from;
+    duration = wholeDuration;
+    console.log(duration)
+}
+
+
+function bookSpace() {
+
+    let url = 'http://localhost:8080/api/booking';
+    let token = localStorage.getItem('token');
+    const headers = new Headers();
+
+
+    if (token) {
+        headers.append(
+            'Authorization', `Basic ${token}`
+        )
+    }
+    headers.append(
+        'accept', `*/*`
+    )
+
+    headers.append(
+        'Content-Type', `application/json`
+    )
+    const body = {
+        parkSpaceId: spaceId,
+        duration: duration,
+        startTime: startTime
+    }
+
+    fetch(url, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(body)
+    })
+        .then((resp) => {
+            if (!resp.ok) {
+                return resp.text().then(text => { throw new Error(text) })
+            }
+            console.log(body)
+        })
+        .catch(error => {
+            console.log('ERROR: ' + error);
+        });
 }
 //2024-02-29T10:38:56.336Z
 async function fetchFilter(from, to) {
@@ -363,7 +413,8 @@ async function fetchFilter(from, to) {
             // console.log(availableSpots);
             // console.log(resp.json())
         }).then(resp => {
-            availableSpots = resp;
+            availableSpots = resp;            
+            document.getElementById("bookBtn").disabled = false;
         })
         .catch(error => {
             console.log('ERROR: ' + error);
@@ -406,7 +457,7 @@ function printActiveBookings() {
     active_table_body.innerHTML = '';
     //NEWEST
     let exampleActive = [];
-    let url = 'http://localhost:8080/booking';
+    let url = 'http://localhost:8080/api/booking';
     let token = localStorage.getItem('token');
     const headers = new Headers();
     if (token) {
@@ -425,7 +476,10 @@ function printActiveBookings() {
             if (!resp.ok) {
                 return resp.text().then(text => { throw new Error(text) })
             }
+            return resp.json();
+        }).then(resp => {
             exampleActive = resp;
+            console.log(exampleActive)
         })
         .catch(error => {
             console.log('ERROR: ' + error);
@@ -500,6 +554,7 @@ function changeSector() {
         section = 'A';
         image_of_spot.src = './parking_images/car1.svg';
         current_spot.innerHTML = availableSpots[last_index].name;
+        spaceId = availableSpots[last_index].parkSpaceId;
     }
     else if (section == 'A') {
         for (let i = 0; i < availableSpots.length; i++) {
@@ -511,6 +566,7 @@ function changeSector() {
         section = 'B';
         image_of_spot.src = './parking_images/car1.svg';
         current_spot.innerHTML = availableSpots[last_index].name;
+        spaceId = availableSpots[last_index].parkSpaceId;
     }
     console.log(section);
 }
@@ -540,6 +596,7 @@ function spot(direction) {
                 image_of_spot.src = './parking_images/car2.svg';
             }
             current_spot.innerHTML = availableSpots[last_index].name;
+            spaceId = availableSpots[last_index].parkSpaceId;
         }
         else {
             last_index--;
@@ -570,11 +627,13 @@ function spot(direction) {
                 image_of_spot.src = './parking_images/car2.svg';
             }
             current_spot.innerHTML = availableSpots[last_index].name;
+            spaceId = availableSpots[last_index].parkSpaceId;
         }
 
         else if (availableSpots[last_index].name == "Disabled") {
             image_of_spot.src = './parking_images/invalid.svg';
             current_spot.innerHTML = availableSpots[last_index].name;
+            spaceId = availableSpots[last_index].parkSpaceId;
         }
 
         else {
