@@ -73,7 +73,7 @@ errorCloseBtn.addEventListener('click', () => {
 })
 
 function login() {
-	let url = "https://localhost:7106/User/Login";
+	let url = "http://localhost:8080/api/user/login";
 
 	let body = {
 		username: usernameInput.value,
@@ -91,19 +91,19 @@ function login() {
 		},
 		body: JSON.stringify(body)
 	})
-	.then((resp) => {
-		if (!resp.ok) {
-			return resp.text().then(text => { throw new Error(text) })
-		}
-		localStorage.setItem("token",`${token}`)
-		window.location.href = "#";
+		.then((resp) => {
+			if (!resp.ok) {
+				return resp.text().then(text => { throw new Error(text) })
+			}
+			localStorage.setItem("token", `${token}`)
+			window.location.href = "./parking_zones.html";
 
-	})
-	.catch(error => {
-		console.error(error);
-		errorToastMessage.innerText = "Fail to log in!";
-		errorToast.classList.add('showToast');
-	});
+		})
+		.catch(error => {
+			console.error(error);
+			errorToastMessage.innerText = "Fail to log in!";
+			errorToast.classList.add('showToast');
+		});
 }
 
 const firstName = document.getElementById('firstName');
@@ -114,15 +114,15 @@ const passwordSignUp = document.getElementById('passwordSignUp');
 const plate = document.getElementById('plate');
 
 function register() {
-	let url = "https://localhost:7106/User/Register";
+	let url = "http://localhost:8080/api/user/register";
 
 	let body = {
 		username: usernameSignUp.value,
-  		password: passwordSignUp.value,
-  		firstName: firstName.value,
-  		lastName: lastName.value,
-  		plate: plate.value,
-  		email: email.value
+		password: passwordSignUp.value,
+		firstName: firstName.value,
+		lastName: lastName.value,
+		plate: plate.value,
+		email: email.value
 	}
 
 	let token = btoa(`${body.username}:${body.password}`);
@@ -135,15 +135,15 @@ function register() {
 		},
 		body: JSON.stringify(body)
 	})
-	.then((resp) => {
-		if (!resp.ok) {
-			return resp.text().then(text => { throw new Error(text) })
-		}
-		window.location.href = "#";
-		localStorage.setItem("token",`${token}`)
-	})
-	.catch(error => {
-		errorToastMessage.innerText = error;
-		errorToast.classList.add('showToast');
-	});
+		.then((resp) => {
+			if (!resp.ok) {
+				return resp.text().then(text => { throw new Error(text) })
+			}
+			window.location.href = "./parking_zones.html";
+			localStorage.setItem("token", `${token}`)
+		})
+		.catch(error => {
+			errorToastMessage.innerText = error;
+			errorToast.classList.add('showToast');
+		});
 }
