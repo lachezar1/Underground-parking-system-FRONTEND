@@ -273,6 +273,7 @@
                                                 <th class="col-3">Place</th>
                                                 <th class="col-4">From</th>
                                                 <th class="col-4">To</th>
+                                                <th class="col-4">Remove</th>
                                             </tr>
                                         </thead>
                                         <tbody id="active-table-body">
@@ -684,8 +685,29 @@
             let active_table_body = document.getElementById('active-table-body');
             active_table_body.innerHTML = '';
             //NEWEST
-            let exampleActive = [];
-            let url = 'http://localhost:8080/booking';
+            let exampleActive = [
+                {
+                    "parkingSpaceId": "A1",
+                    "duration": "04:00:00",
+                    "startTime": "26/02/2024, 09:00"
+                },
+                {
+                    "parkingSpaceId": "A2",
+                    "duration": "08:00:00",
+                    "startTime": "26/02/2024, 12:00"
+                },
+                {
+                    "parkingSpaceId": "A4",
+                    "duration": "07:00:00",
+                    "startTime": "26/02/2024, 11:00"
+                },
+                {
+                    "parkingSpaceId": "A3",
+                    "duration": "04:00:00",
+                    "startTime": "26/02/2024, 10:00"
+                }
+            ];
+            /*let url = 'http://localhost:8080/booking';
             let token = localStorage.getItem('token');
             const headers = new Headers();
             if (token) {
@@ -708,7 +730,7 @@
                 })
                 .catch(error => {
                     console.log('ERROR: ' + error);
-                });
+                });*/
 
             let lengthActive = exampleActive.length;
             if (lengthActive == 0) {
@@ -734,10 +756,24 @@
                 let tdPlace = document.createElement('td'); let place = exampleActive[i].parkingSpaceId;
                 let tdFrom = document.createElement('td'); let from = exampleActive[i].startTime;
                 let tdTo = document.createElement('td'); let to = exampleActive[i].endTime;
+                let tdClose = document.createElement('td');
 
                 tdPlace.innerHTML = place; tr.appendChild(tdPlace);
                 tdFrom.innerHTML = from; tr.appendChild(tdFrom);
                 tdTo.innerHTML = to; tr.appendChild(tdTo);
+                tdClose.innerHTML = "<button type = 'button' class = 'btn-close' aria-label = 'Close' id = 'closeBtn'></button>"; tr.appendChild(tdClose);
+
+                /*let btn = document.getElementById('closeBtn');*/
+                tdClose.addEventListener("click", function () {
+                    tr.classList.add("d-none"); 
+                    console.log(1);
+                    /*tdFrom.classList.add("d-none"); 
+                    tdTo.classList.add("d-none");
+                    tdClose.classList.add("d-none"); */
+
+                });
+
+
 
                 active_table_body.appendChild(tr);
             }
