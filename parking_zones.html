@@ -156,7 +156,7 @@
                             window.drawCapacity = function (capacityValue) {
                                 var canva = $('canvas').length == 2 ? $('canvas')[1] : $('canvas')[0];
                                 var cxt = canva.getContext('2d');
-                                cxt.clearRect(0, 0, $('canvas').width(), $('canvas').height());
+                                // cxt.clearRect(0, 0, $('canvas').width(), $('canvas').height());
                                 canva.width = width;
                                 canva.height = height;
                                 var center = { x: width / 2, y: height / 2 };
