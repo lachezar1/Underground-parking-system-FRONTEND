@@ -338,7 +338,6 @@ function applyingFilters() {
 
     startTime = from;
     duration = wholeDuration;
-    console.log(duration)
 }
 
 
@@ -376,7 +375,7 @@ function bookSpace() {
             if (!resp.ok) {
                 return resp.text().then(text => { throw new Error(text) })
             }
-            console.log(body)
+            console.log(body);
         })
         .catch(error => {
             console.log('ERROR: ' + error);
@@ -407,14 +406,36 @@ async function fetchFilter(from, to) {
                 return resp.text().then(text => { throw new Error(text) })
             }
             return resp.json();
-            // console.log(asd);
-            // availableSpots = resp.json().then(x => x);
-
-            // console.log(availableSpots);
-            // console.log(resp.json())
         }).then(resp => {
-            availableSpots = resp;            
+            availableSpots = resp;
             document.getElementById("bookBtn").disabled = false;
+            document.getElementById('close-filter').click();
+
+            availableSpots.sort(function (a, b) {
+                if (a.name < b.name) {
+                    return -1;
+                }
+                if (a.name > b.name) {
+                    return 1;
+                }
+                return 0;
+            });
+
+            last_index = 0;
+            section = availableSpots[last_index].name[0];
+            image_of_spot.src = './parking_images/car1.svg';
+            current_spot.innerHTML = availableSpots[last_index].name;
+            spaceId = availableSpots[last_index].parkSpaceId;
+
+            if (availableSpots[last_index].name == "A1" || availableSpots[last_index].name == "B1") {
+                image_of_spot.src = './parking_images/car1.svg';
+            }
+            else if (Number(availableSpots[last_index].name[1]) % 2 == 1) {
+                image_of_spot.src = './parking_images/car3.svg';
+            }
+            else if (Number(availableSpots[last_index].name[1]) % 2 == 0) {
+                image_of_spot.src = './parking_images/car2.svg';
+            }
         })
         .catch(error => {
             console.log('ERROR: ' + error);
@@ -479,42 +500,40 @@ function printActiveBookings() {
             return resp.json();
         }).then(resp => {
             exampleActive = resp;
-            console.log(exampleActive)
+            console.log(exampleActive[0])
+            if (exampleActive.length == 0) {
+                active_table_body.innerHTML = "<h2 class='d-flex justify-content-center w-100'>There are no active bookings.</h2>";
+                return '';
+            }
+            exampleActive.sort(function (a, b) {
+                var dateA = new Date(a.startTime.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2})/, '$3-$2-$1T$4:$5'));
+                var dateB = new Date(b.startTime.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2})/, '$3-$2-$1T$4:$5'));
+
+                return dateA - dateB;
+            });
+
+
+            for (let i = 0; i < exampleActive.length; i++) {
+                let tr = document.createElement('tr');
+                let th = document.createElement('th');
+                th.scope = 'row';
+                th.innerHTML = (i + 1);
+                tr.appendChild(th);
+
+                let tdPlace = document.createElement('td'); let place = (exampleActive[i].parkSpaceId); //ne pokazva mestata, a id-tata v tablica
+                let tdFrom = document.createElement('td'); let from = (exampleActive[i].startTime).split('T').join(', ');
+                let tdTo = document.createElement('td'); let to = (exampleActive[i].endTime).split('T').join(', ');
+
+                tdPlace.innerHTML = place; tr.appendChild(tdPlace);
+                tdFrom.innerHTML = from; tr.appendChild(tdFrom);
+                tdTo.innerHTML = to; tr.appendChild(tdTo);
+
+                active_table_body.appendChild(tr);
+            }
         })
         .catch(error => {
             console.log('ERROR: ' + error);
         });
-
-    let lengthActive = exampleActive.length;
-    if (lengthActive == 0) {
-        active_table_body.innerHTML = "<h2 class='d-flex justify-content-center w-100'>There are no active bookings.</h2>";
-        return '';
-    }
-    exampleActive.sort(function (a, b) {
-        var dateA = new Date(a.startTime.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2})/, '$3-$2-$1T$4:$5'));
-        var dateB = new Date(b.startTime.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2})/, '$3-$2-$1T$4:$5'));
-
-        return dateA - dateB;
-    });
-
-
-    for (let i = 0; i < lengthActive; i++) {
-        let tr = document.createElement('tr');
-        let th = document.createElement('th');
-        th.scope = 'row';
-        th.innerHTML = (i + 1);
-        tr.appendChild(th);
-
-        let tdPlace = document.createElement('td'); let place = exampleActive[i].parkingSpaceId;
-        let tdFrom = document.createElement('td'); let from = exampleActive[i].startTime;
-        let tdTo = document.createElement('td'); let to = exampleActive[i].endTime;
-
-        tdPlace.innerHTML = place; tr.appendChild(tdPlace);
-        tdFrom.innerHTML = from; tr.appendChild(tdFrom);
-        tdTo.innerHTML = to; tr.appendChild(tdTo);
-
-        active_table_body.appendChild(tr);
-    }
 }
 function calculateDuration(tableRow, i) {
     let durationH = Number(tableRow[i].duration.slice(0, 2));
@@ -533,17 +552,12 @@ var last_index = 0;
 var last_A = 0;
 var last_B = 0;
 //var availableSpots = ["A1", "A4", "A5", "A6", "A7", "A8", "A9", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "Disabled"];
-availableSpots.sort(function (a, b) {
-    if (a.name < b.name) {
-        return -1;
-    }
-    if (a.name > b.name) {
-        return 1;
-    }
-    return 0;
-});
+
 
 function changeSector() {
+    if (availableSpots.length == 0) {
+        return "Empty";
+    }
     if (section == 'B') {
         for (let i = 0; i < availableSpots.length; i++) {
             if (availableSpots[i].name.startsWith("A")) {
@@ -658,9 +672,11 @@ function loadMap() {
         for (let i = 0; i < 9; i++) {
             let img = document.createElement('img');
             img.classList.add('col-1', 'rotation', 'p-0', 'm-0');
+            let h1 = document.createElement('h1');
 
             if (i == 0) {
                 img.src = './parking_images/car1.svg';
+                
             }
             else if (i % 2 == 1) {
                 img.src = './parking_images/car2.svg';
@@ -668,7 +684,9 @@ function loadMap() {
             else if (i % 2 == 0) {
                 img.src = './parking_images/car3.svg';
             }
+            h1.innerText = 'A' + (i+1);
             map_body.appendChild(img);
+            map_body.appendChild(h1);
         }
     }
     else if (section = 'B') {
@@ -700,6 +718,12 @@ function loadMap() {
 //logout
 function logout() {
     localStorage.removeItem("token");
+    document.getElementById('mainContent').classList.add('d-none');
     window.location.href = "./login_animation.html";
 }
+
+const allParkingSpots = 17; //doesn't need to be gotten from the DB
+var avail_text = document.getElementById('avail-text');
+
+
 

@@ -18,7 +18,7 @@
     <title>Sector A</title>
 </head>
 
-<body class="overflow-x-hidden" onload="checkToken()">
+<body class="overflow-x-hidden" onload="checkToken(); load();">
     <script>
         //load
         function checkToken() {
@@ -26,10 +26,11 @@
                 window.location.href = "./login_animation.html";
                 return "No Token";
             }
+            document.getElementById('mainContent').classList.remove('d-none');
         }
     </script>
     <div id="particle-canvas"></div>
-    <div class="d-flex flex-column position-absolute top-0 start-0 w-100 h-100">
+    <div class="d-flex flex-column position-absolute top-0 start-0 w-100 h-100" id='mainContent'>
         <!--HEADER-->
         <header
             class="col-12 position-relative w-100 top-0 m-0 start-0 d-flex justify-content-between overflow-hidden border border-warning border-top-0 border-end-0 border-start-0 mb-2"
@@ -141,16 +142,13 @@
                         <script>
 
                             //CALCULATING
-                            const allParkingSpots = 17; //doesn't need to be gotten from the DB
-                            var avail_text = document.getElementById('avail-text');
-
                             function loadAvailability() {
-                                let availableSpots = ["A1", "A4", "A5", "A6", "A7", "A8", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "invalid"];//this we get from DB
-                                let availSpots = Number(availableSpots.length); //this we calculate
-                                availSpots /= allParkingSpots;
-                                availSpots *= 100;
-                                return (availSpots / 100).toFixed(2);
-                            }
+                                    let availableSpots = ["A1", "A4", "A5", "A6", "A7", "A8", "A9", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "invalid"];//this we get from DB
+                                    let availSpots = Number(availableSpots.length); //this we calculate
+                                    availSpots /= allParkingSpots;
+                                    availSpots *= 100;
+                                    return (availSpots / 100).toFixed(2);
+                                }
 
                             //CANVA
                             window.requestAnimFrame = (function () {
@@ -169,7 +167,7 @@
                             canva.width = width;
                             canva.height = height;
                             var center = { x: width / 2, y: height / 2 };
-                            var value = loadAvailability();
+                            var value = 0; //not working
                             var initialValue = 0;
 
                             var rotation = Math.random() * Math.PI * 2;
@@ -283,8 +281,10 @@
                             <button type="button" class="btn p-0" data-bs-dismiss="modal" aria-label="Close"
                                 id="close-filter"><i class="bi bi-x fs-1" style="color: #E1B02E;"></i></button>
                         </div>
-                        <div class="modal-body d-flex flex-column flex-md-row justify-content-center" id="map-body"
+                        <!--DOVYRSHI. TRQBVA DA SE PODREDQT IMENA NA MESTA I IMGS-->
+                        <div class="modal-body d-flex flex-md-column flex-row justify-content-center"
                             style="background-color: #EDEDEB;">
+                            <div class="d-flex flex-column flex-md-row justify-content-center" id="map-body"></div>
 
                         </div>
                         <div class="modal-footer" style="background-color: #202020;">
@@ -303,10 +303,10 @@
                 </div>
                 <div class="d-flex justify-content-center h-100 my-md-auto row">
                     <div class="d-flex justify-content-center fs-2" style="font-family: 'Poppins', sans-serif;"
-                        id="current-spot"></div>
+                        id="current-spot">Apply Date</div>
 
                     <div class="d-flex justify-content-center align-items-center align-items-middle my-auto">
-                        <img src="parking_images/car1.svg" alt="" id="current-spot-image" height="500vh"
+                        <img src="" alt="No filter applied" id="current-spot-image" height="500vh" width="100%"
                             style="background-color: white; border: 4px solid #E1B02E; border-radius: 5px;">
                     </div>
 
@@ -443,7 +443,7 @@
                 </div>
                 <div class="modal-footer" style="background-color: #202020;">
                     <button type="button" class="btn" onclick="applyingFilters();"
-                        style="background-color: #E6BD4C; border-color: #000000; color: #000000;">Apply
+                        style="background-color: #E6BD4C; border-color: #000000; color: #000000;" data-bs-dismiss="modal">Apply
                         filters</button>
                 </div>
             </div>
