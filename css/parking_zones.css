@@ -168,3 +168,22 @@
                 height: 40vh;
             }
         }
+
+.myToast{
+    background-color: rgba(55, 230, 84, 0.146);
+    /* border-left: 6px solid rgb(138, 0, 0) !important; */
+    border: 2px solid rgb(13, 255, 0);
+    color: rgb(21, 255, 0);
+    border-radius: 10px;
+    position: absolute;
+    top: 100px;
+    right: 10px;
+    height: 90px;
+    min-width: 350px;
+    display: none !important;
+}
+
+.showToast{
+    display: flex !important;
+    transition-timing-function: ease;
+}

@@ -9,6 +9,22 @@ function load() {
     restartFilter();
 }
 
+//TOAST
+const toast = document.getElementById('myToast');
+const closeBtn = document.getElementById('closeBtn');
+
+closeBtn.addEventListener('click', () => {
+    toast.classList.remove('showToast');
+})
+
+function loadToast() {
+    toast.classList.add('showToast');
+    setTimeout(() => {
+        toast.classList.remove('showToast');
+        location.reload();
+    }, 3000);
+}
+
 //DATE
 var btn_today = document.getElementById('btn-today');
 var btn_tomorrow = document.getElementById('btn-tomorrow');
@@ -353,18 +369,14 @@ function bookSpace() {
             'Authorization', `Basic ${token}`
         )
     }
-    headers.append(
-        'accept', `*/*`
-    )
-
-    headers.append(
-        'Content-Type', `application/json`
-    )
+    headers.append('accept', `*/*`);
+    headers.append('Content-Type', `application/json`);
     const body = {
         parkSpaceId: spaceId,
         duration: duration,
         startTime: startTime
     }
+
 
     fetch(url, {
         method: 'POST',
@@ -375,11 +387,11 @@ function bookSpace() {
             if (!resp.ok) {
                 return resp.text().then(text => { throw new Error(text) })
             }
-            console.log(body);
+            loadToast();
         })
         .catch(error => {
             console.log('ERROR: ' + error);
-        });
+                    });
 }
 //2024-02-29T10:38:56.336Z
 async function fetchFilter(from, to) {
@@ -525,7 +537,7 @@ function printActiveBookings() {
                 th.innerHTML = (i + 1);
                 tr.appendChild(th);
 
-                let tdPlace = document.createElement('td'); let place = (exampleActive[i].parkSpaceId); //ne pokazva mestata, a id-tata v tablica
+                let tdPlace = document.createElement('td'); let place = (exampleActive[i].parkSpaceName); //ne pokazva mestata, a id-tata v tablica
                 let tdFrom = document.createElement('td'); let from = (exampleActive[i].startTime).split('T').join(', ');
                 let tdTo = document.createElement('td'); let to = (exampleActive[i].endTime).split('T').join(', ');
 
