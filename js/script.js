@@ -436,6 +436,11 @@ async function fetchFilter(from, to) {
             else if (Number(availableSpots[last_index].name[1]) % 2 == 0) {
                 image_of_spot.src = './parking_images/car2.svg';
             }
+
+            // sessionStorage.setItem("capacity", loadAvailability());
+            // document.getElementById('capacity').load();
+            console.log(loadAvailability());
+            drawCapacity(loadAvailability());
         })
         .catch(error => {
             console.log('ERROR: ' + error);
@@ -663,8 +668,10 @@ function spot(direction) {
 
 
 function loadMap() {
-    var map_body = document.getElementById('map-body');
-    map_body.innerHTML = '';
+    var map_body_img = document.getElementById('map-body-img');
+    map_body_img.innerHTML = '';
+    var map_body_h1 = document.getElementById('map-body-h1');
+    map_body_h1.innerHTML = '';
 
     var mapModalLabel = document.getElementById('mapModalLabel');
     mapModalLabel.innerHTML = '';
@@ -673,10 +680,10 @@ function loadMap() {
             let img = document.createElement('img');
             img.classList.add('col-1', 'rotation', 'p-0', 'm-0');
             let h1 = document.createElement('h1');
-
+            h1.classList.add('col-1', 'p-0', 'm-0', 'text-center');
             if (i == 0) {
                 img.src = './parking_images/car1.svg';
-                
+
             }
             else if (i % 2 == 1) {
                 img.src = './parking_images/car2.svg';
@@ -684,28 +691,35 @@ function loadMap() {
             else if (i % 2 == 0) {
                 img.src = './parking_images/car3.svg';
             }
-            h1.innerText = 'A' + (i+1);
-            map_body.appendChild(img);
-            map_body.appendChild(h1);
+            h1.innerText = 'A' + (i + 1);
+            map_body_img.appendChild(img);
+            map_body_h1.appendChild(h1);
         }
     }
     else if (section = 'B') {
         for (let i = 0; i < 8; i++) {
             let img = document.createElement('img');
             img.classList.add('col-1');
+            let h1 = document.createElement('h1');
+            h1.classList.add('col-1', 'p-0', 'm-0', 'text-center');
             if (i == 0) {
                 img.src = './parking_images/car1.svg';
+                h1.innerText = 'B' + (i + 1);
             }
             else if (i == 7) {
                 img.src = './parking_images/invalid.svg';
+                h1.innerText = 'Disabled';
             }
             else if (i % 2 == 1) {
                 img.src = './parking_images/car2.svg';
+                h1.innerText = 'B' + (i + 1);
             }
             else if (i % 2 == 0) {
                 img.src = './parking_images/car3.svg';
+                h1.innerText = 'B' + (i + 1);
             }
-            map_body.appendChild(img);
+            map_body_img.appendChild(img);
+            map_body_h1.appendChild(h1);
         }
 
     }
@@ -723,7 +737,14 @@ function logout() {
 }
 
 const allParkingSpots = 17; //doesn't need to be gotten from the DB
-var avail_text = document.getElementById('avail-text');
+//CALCULATING
+function loadAvailability() {
+    //let availableSpots = ["A1", "A4", "A5", "A6", "A7", "A8", "A9", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "invalid"];//this we get from DB
+    let availSpots = Number(availableSpots.length);
+    availSpots /= allParkingSpots;
+    availSpots *= 100;
+    return (availSpots / 100).toFixed(2);
+}
 
 
 

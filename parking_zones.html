@@ -138,18 +138,9 @@
                 style="border-right: 3px solid #E1B02E;">
                 <div class="widget d-lg-flex d-none position-relative h-50">
                     <canvas
-                        class="d-flex flex-column align-content-middle align-items-middle align-self-middle align-middle m-auto h-75">
-                        <script>
+                        class="d-flex w-100 flex-column align-content-middle align-items-middle align-self-middle align-middle m-auto h-75">
 
-                            //CALCULATING
-                            function loadAvailability() {
-                                    let availableSpots = ["A1", "A4", "A5", "A6", "A7", "A8", "A9", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "invalid"];//this we get from DB
-                                    let availSpots = Number(availableSpots.length); //this we calculate
-                                    availSpots /= allParkingSpots;
-                                    availSpots *= 100;
-                                    return (availSpots / 100).toFixed(2);
-                                }
-
+                        <script id="capacity">
                             //CANVA
                             window.requestAnimFrame = (function () {
                                 return window.requestAnimationFrame ||
@@ -160,72 +151,78 @@
                                     };
                             })();
 
-                            var canva = $('canvas')[0];
-                            var cxt = canva.getContext('2d');
                             var width = $('canvas').width();
                             var height = $('canvas').height();
-                            canva.width = width;
-                            canva.height = height;
-                            var center = { x: width / 2, y: height / 2 };
-                            var value = 0; //not working
-                            var initialValue = 0;
+                            window.drawCapacity = function (capacityValue) {
+                                var canva = $('canvas').length == 2 ? $('canvas')[1] : $('canvas')[0];
+                                var cxt = canva.getContext('2d');
+                                cxt.clearRect(0, 0, $('canvas').width(), $('canvas').height());
+                                canva.width = width;
+                                canva.height = height;
+                                var center = { x: width / 2, y: height / 2 };
+                                var value = capacityValue;
+                                var initialValue = 0;
 
-                            var rotation = Math.random() * Math.PI * 2;
+                                var rotation = Math.random() * Math.PI * 2;
 
-                            var draw = function () {
-                                rotation += .001;
+                                var draw = function () {
+                                    rotation += .001;
 
-                                if (rotation >= Math.PI * 2)
-                                    rotation -= Math.PI * 2;
+                                    if (rotation >= Math.PI * 2)
+                                        rotation -= Math.PI * 2;
 
-                                if (Math.abs(initialValue - value) < .001)
-                                    initialValue = value;
+                                    if (Math.abs(initialValue - value) < .001)
+                                        initialValue = value;
 
-                                if (initialValue != value) {
-                                    initialValue += (value - initialValue) / 50;
-                                    $('.widget h2').html(Math.round(initialValue * 100) + '%');
+                                    if (initialValue != value) {
+                                        initialValue += (value - initialValue) / 50;
+                                        $('.widget h2').html(Math.round(initialValue * 100) + '%');
+                                    }
+
+                                    cxt.clearRect(0, 0, width, height);
+                                    cxt.save();
+
+                                    cxt.translate(center.x, center.y);
+                                    cxt.rotate(rotation)
+
+                                    cxt.lineWidth = 35;
+                                    cxt.beginPath();
+                                    cxt.arc(0, 0, 100, 0, Math.PI * 2, false);
+                                    var grad = cxt.createLinearGradient(0, 0, 0, height);
+                                    grad.addColorStop(0, '#E1B02E');
+                                    grad.addColorStop(1, '#E1B02E');
+                                    cxt.strokeStyle = grad;
+                                    cxt.shadowBlur = 10;
+                                    cxt.shadowColor = "rgba(0,0,0,.5)";
+                                    cxt.shadowOffsetX = 0;
+                                    cxt.shadowOffsetY = 4;
+                                    cxt.stroke();
+
+                                    cxt.beginPath();
+                                    cxt.arc(0, 0, 120, rotation, Math.PI * 2 * initialValue + rotation, false);
+                                    grad = cxt.createLinearGradient(0, 0, 0, height);
+                                    grad.addColorStop(0, '#EDEDEB');
+                                    grad.addColorStop(1, '#EDEDEB');
+                                    cxt.strokeStyle = grad;
+                                    // cxt.shadowBlur = 10;
+                                    cxt.shadowColor = "rgba(0,0,0,.5)";
+                                    cxt.shadowOffsetX = 0;
+                                    cxt.shadowOffsetY = 4;
+                                    cxt.stroke();
+
+                                    cxt.restore();
+                                    requestAnimFrame(draw);
                                 }
-
-                                cxt.clearRect(0, 0, width, height);
-                                cxt.save();
-
-                                cxt.translate(center.x, center.y);
-                                cxt.rotate(rotation)
-
-                                cxt.lineWidth = 35;
-                                cxt.beginPath();
-                                cxt.arc(0, 0, 100, 0, Math.PI * 2, false);
-                                var grad = cxt.createLinearGradient(0, 0, 0, height);
-                                grad.addColorStop(0, '#E1B02E');
-                                grad.addColorStop(1, '#E1B02E');
-                                cxt.strokeStyle = grad;
-                                cxt.shadowBlur = 10;
-                                cxt.shadowColor = "rgba(0,0,0,.5)";
-                                cxt.shadowOffsetX = 0;
-                                cxt.shadowOffsetY = 4;
-                                cxt.stroke();
-
-                                cxt.beginPath();
-                                cxt.arc(0, 0, 120, rotation, Math.PI * 2 * initialValue + rotation, false);
-                                grad = cxt.createLinearGradient(0, 0, 0, height);
-                                grad.addColorStop(0, '#EDEDEB');
-                                grad.addColorStop(1, '#EDEDEB');
-                                cxt.strokeStyle = grad;
-                                // cxt.shadowBlur = 10;
-                                cxt.shadowColor = "rgba(0,0,0,.5)";
-                                cxt.shadowOffsetX = 0;
-                                cxt.shadowOffsetY = 4;
-                                cxt.stroke();
-
-                                cxt.restore();
-                                requestAnimFrame(draw);
+                                draw();
                             }
-                            draw();
+
+                            // drawCapacity();
+
                         </script>
                     </canvas>
                     <div class="capacity-label">
                         <h2 id="avail-text"></h2>
-                        <p class="fs-5">Capacity</p>
+                        <p class="fs-5">Free Spaces</p>
                     </div>
                 </div>
 
@@ -281,10 +278,12 @@
                             <button type="button" class="btn p-0" data-bs-dismiss="modal" aria-label="Close"
                                 id="close-filter"><i class="bi bi-x fs-1" style="color: #E1B02E;"></i></button>
                         </div>
-                        <!--DOVYRSHI. TRQBVA DA SE PODREDQT IMENA NA MESTA I IMGS-->
                         <div class="modal-body d-flex flex-md-column flex-row justify-content-center"
                             style="background-color: #EDEDEB;">
-                            <div class="d-flex flex-column flex-md-row justify-content-center" id="map-body"></div>
+                            <div class="d-flex flex-column flex-md-row justify-content-center" id="map-body-h1">
+                            </div>
+                            <div class="d-flex flex-column flex-md-row justify-content-center" id="map-body-img">
+                            </div>
 
                         </div>
                         <div class="modal-footer" style="background-color: #202020;">
@@ -311,7 +310,8 @@
                     </div>
 
                     <button class="mb-4 btn btn-outline-warning"
-                        style="font-family: 'Poppins', sans-serif; height: 10%;" onclick="bookSpace()" disabled="true" id="bookBtn">Book</button>
+                        style="font-family: 'Poppins', sans-serif; height: 10%;" onclick="bookSpace()" disabled="true"
+                        id="bookBtn">Book</button>
                 </div>
                 <div class="col-3 d-flex justify-content-center h-25 pt-5 my-auto">
                     <button class="btn btn-outline-warning btn-lg" onclick="spot('next');"><i
@@ -443,7 +443,8 @@
                 </div>
                 <div class="modal-footer" style="background-color: #202020;">
                     <button type="button" class="btn" onclick="applyingFilters();"
-                        style="background-color: #E6BD4C; border-color: #000000; color: #000000;" data-bs-dismiss="modal">Apply
+                        style="background-color: #E6BD4C; border-color: #000000; color: #000000;"
+                        data-bs-dismiss="modal">Apply
                         filters</button>
                 </div>
             </div>
